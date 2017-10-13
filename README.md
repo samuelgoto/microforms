@@ -2,27 +2,34 @@
 
 microforms is a data file type (```application/microforms```) designed to build restful APIs.
 
-The syntax is designed to intermingle data (text) with control (hypertext), so that API clients don't have to use any out-of-band extra information (e.g. human readable documentation) to make decisions (e.g. delete a resource).
+The form serves the function of intermingling data (text) and control (hypertext). That enables clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
 Here is an example:
 
 ```javascript
 {
+  // comments are allowed!
   type: "Blog",
   blogPost: [{
     type: "BlogPosting",
     id: 1,
     title: "hello world",
+    // here is the first time an anchor tag appears
     get: a { href: "/posts/1"}
   }, {
     type: "BlogPosting",
     id: 2,
     title: "foo bar",
+    // here is a second anchor tag
     get: a { href: "/posts/2"}
   }],
+  // here is how forms are represented
   create: form {
+    // there are hypertext controls to manipulate the request
     method: "POST",
     action: "/create",
+
+    // as well as the ability to describe inputs.
     input { name: "title", type: "text", required: true }
     input { name: "content", type: "text", required: true }
     input { name: "author", type: "text", required: true }
