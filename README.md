@@ -8,7 +8,7 @@ Microforms intermingles data (text) and control (hypertext), enabling API client
 
 They are designed to enable programatic [discovery](#discovery), [documentation](#documentation), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
 
-Linking a human-readable page to a machine-readable microform:
+Here is an example of what a microform looks like:
 
 ```xml
 <resource type="application/ld+json">
