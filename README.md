@@ -2,109 +2,34 @@
 permalink: /index.html
 ---
 
-# Microforms
+Microforms is a hypermedia API media type (```application/microforms+xml```) designed to expose REST APIs.
 
-microforms is a data file type (```application/microforms```) designed to build restful APIs.
+Microforms intermingles data (text) and control (hypertext), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
-The form serves the function of intermingling data (text) and control (hypertext). That enables clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
+They are designed to enable programatic [discovery](#discovery), [documentation](#documentation), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
 
-Here is an example:
+Here is an example of what a microform looks like:
 
-```javascript
-{
-  // comments are allowed!
-  type: "Blog",
-  blogPost: [{
-    type: "BlogPosting",
-    id: 1,
-    title: "hello world",
-    // here is the first time an anchor tag appears
-    get: a { href: "/posts/1"}
-  }, {
-    type: "BlogPosting",
-    id: 2,
-    title: "foo bar",
-    // here is a second anchor tag
-    get: a { href: "/posts/2"}
-  }],
-  // here is how forms are represented
-  create: form {
-    // there are hypertext controls to manipulate the request
-    method: "POST",
-    action: "/create",
-    // as well as the ability to describe inputs.
-    input { name: "title", type: "text", required: true }
-    input { name: "content", type: "text", required: true }
-    input { name: "author", type: "text", required: true }
-  }
-}
-```
-
-And here is how a client (in this specific example, a javascript client) would interact:
-
-```javascript
-// No out-of-band information needed to construct a request to create a post.
-// Everything is embedded into the message.
-// The client knowns how to follow links (a) and submit forms (form).
-let post = await fetch("/blog.micro").then(posts => posts.create({
-  title: "hello",
-  content: "world",
-  author: "goto@google.com"
-}));
-```
-
-Which returns:
-
-```javascript
-{
-  type: "BlogPosting",
-  id: 4,
-  title: "hello",
-  content: "world",
-  author: "goto@google.com",
-  delete: form {
-    action: "/posts/4"
-    method: "DELETE",
-  },
-  update: form {
-    method: "POST",
-    input { name: "content", type: "text", required: true }
-  }
-}
-```
-
-With the magic of HATEOAS, submitting a microform gets you another microform,
-with new exciting data and affordances!
-
-```javascript
-// For example, say you disliked it, you can update it ...
-post.update({
-  content: "Actually, nevermind."
-});
-
-// ... or delete it ...
-post.delete();
-// ...
-```
-
-Microforms isn't opinionated about JSON conventions nor schemas / ontologies, but here is an example of what it could look like if you are into JSON-LD and schema.org.
-
-```javascript
-{
-  @context: "http://schema.org",
-  @type: "Blog",
-  @id: "/",
-  title: "Sam's blog",
-  blogPost: [{
-    @type: "BlogPosting",
-    title: "Welcome",
-    content: "This is my first post!"
-  }],
-  add: form {
-    input { name: "title", required: true }
-    input { name: "content", required: true }
-  }
-}
+```xml
+<resource type="application/ld+json">
+  {
+    @context: "schema.org",
+    @type: "Blog"
+    title: "Sam's blog",
+    blogPost: [{
+      type: "BlogPosting",
+      id: 1,
+      title: "hello world"
+    }, {
+      type: "BlogPosting",
+      id: 2,
+      title: "foo bar"
+  }]
+  <link rel="self" href="/api">
+  <form action="/create" method="POST">
+    <input name="title">
+  </form>
+</resource>
 ```
 
 # Affordances
@@ -124,36 +49,33 @@ As well as some additional ones to enable contemporary APIs to be written:
 
 * ```group```
 * data loading
+* ```cardinality```
+
+# Documentation
+
+* ```labels```
+
+# Validation
+
 * validation
 
-A lot of control structures are also available outside of the context of the file format, which gives clients of microforms more instructions on how to proceed. These are:
+# Discovery
 
-* Accepts-Vocab: for vocabulary negotiation
-* Bearer tokens: for key management
-* Throttling: for quota management
-
-# Extension mechanism
-
-We are still exploring some options, but it is clear that we need to support some sort of extension mechanism. Something along the lines of:
-
-```javascript
-{
-  namespace { id: "oauth", url: "http://oauth.org" }
-  type: "Error",
-  messsage: "Oops, you have to be signed-in to access this resource",
-  retry: [oauth:signin] {
-    [oauth:authorization]: "http://example.com",
-    [oauth:scopes]: {
-      "write.calendar": "modify your calendar events",
-      "write.calendar": "access your calendar events",
-    }
-  }
-}
+```html
+<link rel="alternate" href="/api" type="application/microforms+xml">
 ```
 
-# Grammar
+# Key management
 
-TODO(goto): write this down. Looks something like JSON + {} nodes + comments.
+* Bearer tokens: for key management
+
+# Quota management
+
+* Throttling: for quota management
+
+* Accepts-Vocab: for vocabulary negotiation
+
+# Extension mechanism
 
 # Related Work
 
@@ -170,8 +92,4 @@ TODO(goto): write this down. Looks something like JSON + {} nodes + comments.
 * restdesc
 * wsdl
 * hal
-
-# Acknowledgements
-
-* TODO(goto): fill this up
 
