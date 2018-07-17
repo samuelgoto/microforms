@@ -1,0 +1,20 @@
+{
+  "name": "microforms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "microforms.js",
+  "scripts": {
+    "test": "mocha -w tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelgoto/microforms.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/samuelgoto/microforms/issues"
+  },
+  "homepage": "https://github.com/samuelgoto/microforms",
+  "dependencies": {
+  }
+}
