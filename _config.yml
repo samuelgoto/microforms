@@ -1,1 +1,5 @@
 theme: jekyll-theme-slate
+
+kramdown:
+  auto_ids: true # Auto-generate ID's for headings
+
