@@ -11,25 +11,25 @@ They are designed to enable programatic [discovery](#discovery), [documentation]
 Here is an example of what a microform looks like:
 
 ```xml
-<resource type="application/ld+json">
+<doc type="application/ld+json">
   {
-    @context: "schema.org",
-    @type: "Blog"
-    title: "Sam's blog",
-    blogPost: [{
-      type: "BlogPosting",
-      id: 1,
-      title: "hello world"
+    "@context": "schema.org",
+    "@type": "Blog"
+    "title": "Sam's blog",
+    "blogPost": [{
+      "@type": "BlogPosting",
+      "id": 1,
+      "title": "hello world"
     }, {
-      type: "BlogPosting",
-      id: 2,
-      title: "foo bar"
+      "@type": "BlogPosting",
+      "id": 2,
+      "title": "foo bar"
   }]
-  <link rel="self" href="/api">
+  <link rel="self" href="/api" />
   <form action="/create" method="POST">
-    <input name="title">
+    <input name="title" />
   </form>
-</resource>
+</doc>
 ```
 
 # Affordances
