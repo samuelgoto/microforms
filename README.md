@@ -2,35 +2,30 @@
 permalink: /index.html
 ---
 
-# Microforms
+Microforms is a hypermedia API media type (```application/microforms+xml```) designed to expose REST APIs.
 
-Microforms is a hypermedia API media type (```application/microforms+xml```) designed to expose REST API.
-
-The form serves the function of intermingling data (text) and control (hypertext). That enables clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
+Microforms intermingles data (text) and control (hypertext, borrowing as much as possible from HTML), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
 Here is an example:
 
 ```xml
 <resource>
   <link rel="self" href="/blog">
-  <data>
+  <meta>
   {
     // comments are allowed!
     type: "Blog",
+    title: "Sam's blog",
     blogPost: [{
       type: "BlogPosting",
       id: 1,
-      title: "hello world",
-      // here is the first time an anchor tag appears
-      get: a { href: "/posts/1"}
+      title: "hello world"
     }, {
       type: "BlogPosting",
       id: 2,
-      title: "foo bar",
-      // here is a second anchor tag
-      get: a { href: "/posts/2"}
+      title: "foo bar"
   }]
-  </data>
+  </meta>
   <form action="/create" method="POST">
     <input name="title">
   </form>
