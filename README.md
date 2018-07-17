@@ -4,9 +4,9 @@ permalink: /index.html
 
 Microforms is a hypermedia API media type (```application/microforms+xml```) designed to expose REST APIs.
 
-Microforms intermingles data (text) and control (hypertext, borrowing as much as possible from HTML), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
+Microforms intermingles data (text) and control (hypertext), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
-They can be discovered in human-readable web pages with an ```link``` alternate tag.
+They can be discovered in human-readable web pages with an ```link``` alternate tag:
 
 ```html
 <link rel="alternate" href="/api" type="application/microforms+xml">
@@ -15,12 +15,10 @@ They can be discovered in human-readable web pages with an ```link``` alternate 
 Linking a human-readable page to a machine-readable microform:
 
 ```xml
-<resource>
-  <link rel="self" href="/api">
-  <meta>
+<resource type="application/ld+json">
   {
-    // comments are allowed!
-    type: "Blog",
+    @context: "schema.org",
+    @type: "Blog"
     title: "Sam's blog",
     blogPost: [{
       type: "BlogPosting",
@@ -31,7 +29,7 @@ Linking a human-readable page to a machine-readable microform:
       id: 2,
       title: "foo bar"
   }]
-  </meta>
+  <link rel="self" href="/api">
   <form action="/create" method="POST">
     <input name="title">
   </form>
@@ -59,28 +57,23 @@ As well as some additional ones to enable contemporary APIs to be written:
 
 A lot of control structures are also available outside of the context of the file format, which gives clients of microforms more instructions on how to proceed. These are:
 
-* Accepts-Vocab: for vocabulary negotiation
+# Discovery
+
+```html
+<link rel="alternate" href="/api" type="application/microforms+xml">
+```
+
+# Key management
+
 * Bearer tokens: for key management
+
+# Quota management
+
 * Throttling: for quota management
 
+* Accepts-Vocab: for vocabulary negotiation
+
 # Extension mechanism
-
-We are still exploring some options, but it is clear that we need to support some sort of extension mechanism. Something along the lines of:
-
-```javascript
-{
-  namespace { id: "oauth", url: "http://oauth.org" }
-  type: "Error",
-  messsage: "Oops, you have to be signed-in to access this resource",
-  retry: [oauth:signin] {
-    [oauth:authorization]: "http://example.com",
-    [oauth:scopes]: {
-      "write.calendar": "modify your calendar events",
-      "write.calendar": "access your calendar events",
-    }
-  }
-}
-```
 
 # Related Work
 
