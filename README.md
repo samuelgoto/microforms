@@ -14,6 +14,7 @@ Here is an example of what a ```application/microforms+xml``` document looks lik
 
 ```xml
 <doc type="application/ld+json">
+  <!-- domain-specific data -->
   {
     "@context": "schema.org",
     "@type": "Blog"
@@ -27,6 +28,7 @@ Here is an example of what a ```application/microforms+xml``` document looks lik
       "id": 2,
       "title": "foo bar"
   }]
+  <!-- general purpose hypertext affordances -->
   <link rel="self" href="/api" />
   <form action="/create" method="POST">
     <input name="title" />
@@ -38,24 +40,17 @@ Here is an example of what a ```application/microforms+xml``` document looks lik
 
 It comes with some common control structures, borrowed from HTML for ease of use. For example:
 
-* ```a```
+* ```doc```
 * ```link```
 * ```form```
 * ```input```
 * ```select```
 * ```option```
-* ```meta```
 * ```fieldset```
-
-As well as some additional ones to enable contemporary APIs to be written:
-
-* ```group```
-* data loading
-* ```cardinality```
+* ```a```
+* ```label```
 
 # Documentation
-
-* ```labels```
 
 # Validation
 
@@ -79,19 +74,4 @@ As well as some additional ones to enable contemporary APIs to be written:
 
 # Extension mechanism
 
-# Related Work
-
-* hydra
-* atom
-* swagger
-* alps
-* siren
-* swagger
-* json-home
-* rsdl
-* wadl
-* blueprint
-* restdesc
-* wsdl
-* hal
 
