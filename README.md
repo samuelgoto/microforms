@@ -12,6 +12,7 @@ Here is an example of what a microform looks like:
 
 ```xml
 <doc type="application/ld+json">
+  <!-- domain-specific data -->
   {
     "@context": "schema.org",
     "@type": "Blog"
@@ -25,6 +26,7 @@ Here is an example of what a microform looks like:
       "id": 2,
       "title": "foo bar"
   }]
+  <!-- general purpose hypermedia affordances -->
   <link rel="self" href="/api" />
   <form action="/create" method="POST">
     <input name="title" />
