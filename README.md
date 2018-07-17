@@ -6,11 +6,17 @@ Microforms is a hypermedia API media type (```application/microforms+xml```) des
 
 Microforms intermingles data (text) and control (hypertext, borrowing as much as possible from HTML), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
-Here is an example:
+They can be discovered in human-readable web pages with an ```link``` alternate tag.
+
+```html
+<link rel="alternate" href="/api" type="application/microforms+xml">
+```
+
+Linking a human-readable page to a machine-readable microform:
 
 ```xml
 <resource>
-  <link rel="self" href="/blog">
+  <link rel="self" href="/api">
   <meta>
   {
     // comments are allowed!
