@@ -4,107 +4,37 @@ permalink: /index.html
 
 # Microforms
 
-microforms is a data file type (```application/microforms```) designed to build restful APIs.
+Microforms is a hypermedia API media type (```application/microforms+xml```) designed to expose REST API.
 
 The form serves the function of intermingling data (text) and control (hypertext). That enables clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
 Here is an example:
 
-```javascript
-{
-  // comments are allowed!
-  type: "Blog",
-  blogPost: [{
-    type: "BlogPosting",
-    id: 1,
-    title: "hello world",
-    // here is the first time an anchor tag appears
-    get: a { href: "/posts/1"}
-  }, {
-    type: "BlogPosting",
-    id: 2,
-    title: "foo bar",
-    // here is a second anchor tag
-    get: a { href: "/posts/2"}
-  }],
-  // here is how forms are represented
-  create: form {
-    // there are hypertext controls to manipulate the request
-    method: "POST",
-    action: "/create",
-    // as well as the ability to describe inputs.
-    input { name: "title", type: "text", required: true }
-    input { name: "content", type: "text", required: true }
-    input { name: "author", type: "text", required: true }
-  }
-}
-```
-
-And here is how a client (in this specific example, a javascript client) would interact:
-
-```javascript
-// No out-of-band information needed to construct a request to create a post.
-// Everything is embedded into the message.
-// The client knowns how to follow links (a) and submit forms (form).
-let post = await fetch("/blog.micro").then(posts => posts.create({
-  title: "hello",
-  content: "world",
-  author: "goto@google.com"
-}));
-```
-
-Which returns:
-
-```javascript
-{
-  type: "BlogPosting",
-  id: 4,
-  title: "hello",
-  content: "world",
-  author: "goto@google.com",
-  delete: form {
-    action: "/posts/4"
-    method: "DELETE",
-  },
-  update: form {
-    method: "POST",
-    input { name: "content", type: "text", required: true }
-  }
-}
-```
-
-With the magic of HATEOAS, submitting a microform gets you another microform,
-with new exciting data and affordances!
-
-```javascript
-// For example, say you disliked it, you can update it ...
-post.update({
-  content: "Actually, nevermind."
-});
-
-// ... or delete it ...
-post.delete();
-// ...
-```
-
-Microforms isn't opinionated about JSON conventions nor schemas / ontologies, but here is an example of what it could look like if you are into JSON-LD and schema.org.
-
-```javascript
-{
-  @context: "http://schema.org",
-  @type: "Blog",
-  @id: "/",
-  title: "Sam's blog",
-  blogPost: [{
-    @type: "BlogPosting",
-    title: "Welcome",
-    content: "This is my first post!"
-  }],
-  add: form {
-    input { name: "title", required: true }
-    input { name: "content", required: true }
-  }
-}
+```xml
+<resource>
+  <link rel="self" href="/blog">
+  <data>
+  {
+    // comments are allowed!
+    type: "Blog",
+    blogPost: [{
+      type: "BlogPosting",
+      id: 1,
+      title: "hello world",
+      // here is the first time an anchor tag appears
+      get: a { href: "/posts/1"}
+    }, {
+      type: "BlogPosting",
+      id: 2,
+      title: "foo bar",
+      // here is a second anchor tag
+      get: a { href: "/posts/2"}
+  }]
+  </data>
+  <form action="/create" method="POST">
+    <input name="title">
+  </form>
+</resource>
 ```
 
 # Affordances
@@ -151,10 +81,6 @@ We are still exploring some options, but it is clear that we need to support som
 }
 ```
 
-# Grammar
-
-TODO(goto): write this down. Looks something like JSON + {} nodes + comments.
-
 # Related Work
 
 * hydra
@@ -170,8 +96,4 @@ TODO(goto): write this down. Looks something like JSON + {} nodes + comments.
 * restdesc
 * wsdl
 * hal
-
-# Acknowledgements
-
-* TODO(goto): fill this up
 
