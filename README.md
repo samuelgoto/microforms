@@ -6,11 +6,7 @@ Microforms is a hypermedia API media type (```application/microforms+xml```) des
 
 Microforms intermingles data (text) and control (hypertext), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
 
-They can be discovered in human-readable web pages with an ```link``` alternate tag:
-
-```html
-<link rel="alternate" href="/api" type="application/microforms+xml">
-```
+They are designed to enable programatic [discovery](#discovery), [documentation](#documentation), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
 
 Linking a human-readable page to a machine-readable microform:
 
@@ -53,9 +49,15 @@ As well as some additional ones to enable contemporary APIs to be written:
 
 * ```group```
 * data loading
-* validation
+* ```cardinality```
 
-A lot of control structures are also available outside of the context of the file format, which gives clients of microforms more instructions on how to proceed. These are:
+# Documentation
+
+* ```labels```
+
+# Validation
+
+* validation
 
 # Discovery
 
