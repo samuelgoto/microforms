@@ -1,3 +1,7 @@
+---
+permalink: /index.html
+---
+
 # Microforms
 
 microforms is a data file type (```application/microforms```) designed to build restful APIs.
