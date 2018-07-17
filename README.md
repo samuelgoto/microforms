@@ -2,13 +2,15 @@
 permalink: /index.html
 ---
 
-Microforms is a hypermedia API media type (```application/microforms+xml```) designed to expose REST APIs.
+Microforms is a structural, domain-agnostic hypermedia API media type designed to expose REST APIs.
 
-Microforms intermingles data (text) and control (hypertext), enabling API clients to make decisions (e.g. delete a resource) without using out-of-band information (e.g. human readable documentation).
+Microforms intermingles domain-specific data (text) and general purpose control (hypertext), enabling API clients to make decisions (e.g. create/delete/update a resource) without using out-of-band information (e.g. human readable documentation).
 
-They are designed to enable programatic [discovery](#discovery), [documentation](#documentation), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
+In addition to the data type, microforms also specifies conventions for the programatic [discovery](#discovery), [documentation](#documentation), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
 
-Here is an example of what a microform looks like:
+There is an XML serialization of microforms (```application/microforms+xml```) and an early exploration of a JSON/JSON-LD serialization (```application/microforms+json```).
+
+Here is an example of what a ```application/microforms+xml``` document looks like:
 
 ```xml
 <doc type="application/ld+json">
