@@ -28,7 +28,6 @@ Here is an example:
     // there are hypertext controls to manipulate the request
     method: "POST",
     action: "/create",
-
     // as well as the ability to describe inputs.
     input { name: "title", type: "text", required: true }
     input { name: "content", type: "text", required: true }
