@@ -10,9 +10,9 @@ The root element of a microform document.
 
 # Children
 
-  * [form](form.html)
-  * [link](link.html)
-  * [label](label.html)
+  * [form](form.md)
+  * [link](link.md)
+  * [label](label.md)
 
 # Examples
 

@@ -1,6 +1,6 @@
 # &lt;input&gt;
 
-The &lt;input&gt; tag defines an input field as a parameter to a [&lt;form&gt;](form.html).
+The &lt;input&gt; tag defines an input field as a parameter to a [&lt;form&gt;](form.md).
 
 An input field can vary in many ways, depending on the type attribute.
 

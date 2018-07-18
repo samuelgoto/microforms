@@ -13,9 +13,9 @@ The &lt;form&gt; tag defines a templated hypertext transition.
 
 # Children
 
-  * [label](label.html)
-  * [input](input.html)
-  * [fieldset](fieldset.html)
+  * [label](label.md)
+  * [input](input.md)
+  * [fieldset](fieldset.md)
 
 # Examples
 

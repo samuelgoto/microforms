@@ -32,7 +32,7 @@ let nodes =
        []),
 
   node("label", [], [
-        `The <label> tag defines a human-readable label for an [<input>](input.html), [<form>](form.html) or [<doc>](doc.html).`,
+        `The <label> tag defines a human-readable label for an [<input>](input.md), [<form>](form.md) or [<doc>](doc.md).`,
        `The for attribute of the <label> tag should be equal to the id attribute of the related element to bind them together. If none is specified, it binds to its direct parent.`
        ].map(x => x.trim()).join("\n\n"), 
        [prop("for", "element_id", "Specifies which document element a label is bound to")],
@@ -48,7 +48,7 @@ let nodes =
        []),
 
   node("input", [], [
-      `The <input> tag defines an input field as a parameter to a [<form>](form.html).`,
+      `The <input> tag defines an input field as a parameter to a [<form>](form.md).`,
       `An input field can vary in many ways, depending on the type attribute.`
        ].map(x => x.trim()).join("\n\n"), 
        [prop("accept", "media_type", "Specifies the types of files that the server accepts (only for type='file')"),
@@ -98,7 +98,7 @@ for (let {name, description, properties, children, examples} of nodes) {
  result.push(`# Children`);
  result.push(``);
  for (let child of children) {
-  result.push(`  * [${child}](${child}.html)`);
+  result.push(`  * [${child}](${child}.md)`);
  }
  result.push(``);
  result.push(`# Examples`);

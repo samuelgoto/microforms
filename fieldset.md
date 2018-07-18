@@ -11,7 +11,7 @@ The &lt;fieldset&gt; tag is used to group related elements in a form.
 
 # Children
 
-  * [input](input.html)
+  * [input](input.md)
 
 # Examples
 

@@ -6,12 +6,12 @@ By design, we start by re-using as many existing hypertext affordances from the 
 
 Here is the set of elements available in microforms:
 
-* [doc](doc.html)
-* [link](link.html)
-* [label](label.html)
-* [form](form.html)
-    * [input](input.html)
-    * [fieldset](fieldset.html)
+* [doc](doc.md)
+* [link](link.md)
+* [label](label.md)
+* [form](form.md)
+    * [input](input.md)
+    * [fieldset](fieldset.md)
 
 # Discovery
 
@@ -25,9 +25,9 @@ TODO(goto): go over discovery.
 
 Microforms are designed to be self-documented without requiring clients to access any out-of-band information.
 
-What that means is that each [&lt;doc&gt;](doc.html) in microforms carries enough human-readable and machine-readable information to enable programmers and machines to make the decisions on how things should be filled to execute a call.
+What that means is that each [&lt;doc&gt;](doc.md) in microforms carries enough human-readable and machine-readable information to enable programmers and machines to make the decisions on how things should be filled to execute a call.
 
-The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.html) with your [&lt;form&gt;](form.html) and [&lt;input&gt;](input.html) elements.
+The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.md) with your [&lt;form&gt;](form.md) and [&lt;input&gt;](input.md) elements.
 
 ```xml
 <doc>
@@ -53,7 +53,7 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
 </doc>
 ```
 
-With [&lt;label&gt;](label.html)s each and every one of your [&lt;doc&gt;](doc.html) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
+With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
 # Validation
 
