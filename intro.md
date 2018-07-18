@@ -2,14 +2,6 @@ Microforms is a media type for hypermedia APIs.
 
 Microforms is designed to make exposing REST APIs programatically **discoverable**, **explorable** and **executable** by **aggregators** (e.g. crawlers). 
 
-By creating a link from your human-readable page to your microforms
-
-```html
-<link rel="alternate" href="/api" type="application/microforms+xml">
-```
-
-You enable **aggregators** to learn about a machine-readable alternative version of your human-readable page.
-
 The top level microform [&lt;doc&gt;](doc.md) element enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
 
 ```html
@@ -30,11 +22,22 @@ As a **media type**, microforms defines a serialization (e.g. ```application/mic
 
 The [built-in](affordances.md) elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
 
+* programatically **[discover](#discovery)** your API
 * programatically create human-readable **[documentation](#documentation)** for you API
 * programatically **[validate](#validation-rules)** user input
 * programatically **[execute](#execution-rules)** API calls
 
 Lets go over how each of these capabilities work.
+
+# Discovery
+
+By creating a link from your human-readable page to your microforms
+
+```html
+<link rel="alternate" href="/api" type="application/microforms+xml">
+```
+
+You enable **aggregators** to learn about a machine-readable alternative version of your human-readable page.
 
 # Documentation
 
@@ -71,34 +74,29 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
 
 With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
-# Notation
-
-## Affordances
-
-Microforms comes with built-in hypermedia affordances to enable the programatic execution of API calls.
-
-By design, we start by re-using as many existing hypertext affordances from the well established HTML set. We extend new attributes and elements when necessary and remove attributes whenever they are not applicable to machine-readable clients.
-
-Here is the set of elements available in microforms:
-
-* [doc](doc.md)
-* [link](link.md)
-* [label](label.md)
-* [form](form.md)
-    * [input](input.md)
-    * [fieldset](fieldset.md)
-
-# Discovery
-
-TODO(goto): go over discovery.
-
-# Processing rules
-
 # Validation rules
 
-TODO(goto): go over validation
+Microforms validation helps ensure that users or machines fill out the API calls in the correct format, making sure that submitted data will work successfully on the server. 
+
+Microforms borrows as much as possible the validation rules from HTML.
+
+Clients validate:
+
+* the presence of ```required``` inputs
+* the matching of ```pattern``` attributes
+* the ```minlength``` and ```maxlength``` of text inputs
+* the ```step```, ```min``` and ```max``` values of numeric inputs
+* the pattern matching of ```email``` inputs
 
 # Execution rules
+
+Microforms submission works like HTML form submissions:
+
+* The ```action``` attribute defines the URL containing the server-side script that handles the form data.
+* The ```method``` attribute defines the HTTP method to be used (e.g. GET or POST).
+* The ```enctype``` attribute defines how the form data should be encoded.
+
+If the data passes the [validation rules](#validation-rules), the data is encoded according to the ```enctype``` attribute and a HTTP request is constructed based on the ```action``` endpoint and the desired HTTP ```method``` to be used.
 
 ## Key management
 
@@ -108,11 +106,22 @@ TODO(goto): go over bearer tokens
 
 ## Quota management
 
-TODO(goto): go over quota management
+Microforms also defines dedicated HTTP headers to enable the server to tell clients when to expect their quotas to expire.
 
-* Throttling: for quota management
+| Header        | Description           |
+| :--------------- |:---------------|
+| ```X-RateLimit-Limit``` | The maximum number of requests you're permitted to make per hour. |
+| ```X-RateLimit-Remaining```  | The number of requests remaining in the current rate limit window. |
+| ```X-RateLimit-Reset``` | The time at which the current rate limit window resets in UTC epoch seconds. |
 
-* Accepts-Vocab: for vocabulary negotiation
+For example:
+
+```
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4999
+X-RateLimit-Reset: 1372700873
+```
+
 
 # Backwards compatibility
 
