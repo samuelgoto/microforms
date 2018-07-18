@@ -100,9 +100,21 @@ If the data passes the [validation rules](#validation-rules), the data is encode
 
 ## Key management
 
-TODO(goto): go over bearer tokens
+In microforms, as opposed to traditional APIs, the client self-generates an API key without prior / offband negotiation with the server (e.g. signing-up and getting manually a API developer key).
 
-* Bearer tokens: for key management
+The server is responsible for taking that key and applying its own business decisions (e.g. to manage the callers [quota](#quota-management)).
+
+Clients identify themselves using ```Bearer tokens``` set in the ```Authorization``` header of every microforms request. For example:
+
+```
+Authorization: Bearer AbCdEf123456
+```
+
+The```Bearer token``` sent by the client identifies an ```issuer``` (e.g. ```gmail@system.gserviceaccount.com```) which the server can use to apply its own judgement.
+
+If the token doesn't verify, the service should respond to the request with an HTTP response code ```401 (Unauthorized)```.
+
+Bearer Tokens are part of the OAuth V2 standard.
 
 ## Quota management
 
