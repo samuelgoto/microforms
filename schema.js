@@ -44,6 +44,7 @@ let nodes =
        [prop("action", "URL", "Specifies where to send the form-data when a form is submitted"),
         prop("enctype", "```application/x-www-form-urlencoded```, ```multipart/form-data``` or ```text/plain```", "Specifies how the form-data should be encoded when submitting it to the server (only for method='post')"),
         prop("method", "```get```, ```post``` ```delete``` or ```patch```", "Specifies the HTTP method to use when sending form-data"),
+        prop("name", "string", "Specifies the form name"),
         prop("novalidate", "novalidate", "Specifies that the form should not be validated when submitted")],
        []),
 

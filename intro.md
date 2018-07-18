@@ -1,19 +1,75 @@
-Microforms is a media type for hypermedia APIs. You can read more about its design goals [here](design.md).
+Microforms is a media type for hypermedia APIs.
 
-Microforms is a set of conventions for:
+Microforms is designed to make exposing REST APIs programatically **discoverable**, **explorable** and **executable** by **aggregators** (e.g. crawlers). 
 
-* Notation
-* Affordances
-* Processing rules
-* Validation rules
-* Execution rules
+By creating a link from your human-readable page to your microforms
 
-Within the execution rules, there are rules defined for:
+```html
+<link rel="alternate" href="/api" type="application/microforms+xml">
+```
 
-* Serialization
-* Key management
-* Quota management
-* Billing
+You enable **aggregators** to learn about a machine-readable alternative version of your human-readable page.
+
+The top level microform [&lt;doc&gt;](doc.md) element enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
+
+```html
+<doc>
+  {
+    "type": "Issues",
+    "description": "The list of issues we are tracking"
+
+    <form name="create" action="/create">
+      <input name="title" />
+      <input name="description" />
+    </form>
+  }
+</doc>
+```
+
+As a **media type**, microforms defines a serialization (e.g. ```application/microforms+xml``` and ```application/microforms+json```) as well as a set of [built-in](affordances) elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation, [form](form.md), [input](input.md), [fieldset](fieldset.md) and [label](label.md)).
+
+The [built-in](affordances.md) elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
+
+* programatically create human-readable **[documentation](#documentation)** for you API
+* programatically **[validate](#validation-rules)** user input
+* programatically **[execute](#execution-rules)** API calls
+
+Lets go over how each of these capabilities work.
+
+# Documentation
+
+Microforms are designed to be self-documented without requiring clients to access any out-of-band information.
+
+What that means is that each [&lt;doc&gt;](doc.md) in microforms carries enough human-readable and machine-readable information to enable programmers and machines to make the decisions on how things should be filled to execute a call.
+
+The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.md) with your [&lt;form&gt;](form.md) and [&lt;input&gt;](input.md) elements.
+
+```xml
+<doc>
+  {
+    "type": "Issues",
+    "description": "The list of issues we are tracking"
+
+    <!-- The machine-readable control data gives clients the 
+      -- information on how to execute the call -->
+    <form name="create" action="/create" method="post">
+
+      <!-- The human-readable labels gives programmers the
+        -- information they need to know what each field means -->
+      <label>Create new issues</label>
+
+      <!-- Individual fields can be annotated too -->
+      <label for="title">The title of the issue</label>
+      <input id="title" name="title" required="true" />
+
+      <label for="description">The description of the issue</label>
+      <input id="description" name="description" required="true" />
+    </form>
+  }
+</doc>
+```
+
+With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
 # Notation
 
@@ -35,45 +91,6 @@ Here is the set of elements available in microforms:
 # Discovery
 
 TODO(goto): go over discovery.
-
-```html
-<link rel="alternate" href="/api" type="application/microforms+xml">
-```
-
-# Documentation
-
-Microforms are designed to be self-documented without requiring clients to access any out-of-band information.
-
-What that means is that each [&lt;doc&gt;](doc.md) in microforms carries enough human-readable and machine-readable information to enable programmers and machines to make the decisions on how things should be filled to execute a call.
-
-The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.md) with your [&lt;form&gt;](form.md) and [&lt;input&gt;](input.md) elements.
-
-```xml
-<doc>
-  {
-    "kind": "Issues",
-    "description": "The list of issues we are tracking"
-
-    <!-- The machine-readable control data gives clients the 
-      -- information on how to execute the call -->
-    <form action="/create" method="post">
-
-      <!-- The human-readable labels gives programmers the
-        -- information they need to know what each field means -->
-      <label>Create new issues</label>
-
-      <!-- Individual fields can be annotated too -->
-      <label for="title">The title of the issue</label>
-      <input id="title" name="title" required="true" />
-
-      <label for="description">The description of the issue</label>
-      <input id="description" name="description" required="true" />
-    </form>
-  }
-</doc>
-```
-
-With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
 # Processing rules
 
@@ -97,3 +114,61 @@ TODO(goto): go over quota management
 
 * Accepts-Vocab: for vocabulary negotiation
 
+# Backwards compatibility
+
+Ordinary APIs (e.g. JSON) can be interpreted as microforms by referencing a microforms document in a HTTP Link Response Header.
+
+```
+Link: </ordinary-json-document.microform>; 
+    rel="http://microforms.org/"; 
+    type="application/microforms+xml"
+```
+
+Doing so, allows your API to gather the benefits of microforms without requiring developers to drastically change their documents and provides an incremental upgrade path for existing infrastructure without breaking existing clients that rely on your current API.
+
+A microforms client can request a microform through the ```Accept``` header.
+
+```
+GET /ordinary-json-document.json HTTP/1.1
+Host: example.com
+Accept: application/microforms+xml,application/json,*/*;q=0.1
+```
+
+The server can pick and choose which mime types to generate (e.g. ```application/microforms+xml``` or ```application/json```) and if it is easier, generate a microform response with ```applicaton/json``` and a reference to the microform document.
+
+```
+HTTP/1.1 200 OK
+...
+Content-Type: application/json
+Link: </ordinary-json-document.microform>; 
+    rel="http://microforms.org/"; 
+    type="application/microforms+xml"
+
+{
+  "type": "Issues",
+  "url": "https://github.com/samuelgoto/microforms/issues",
+  "description": "The list of issues we are tracking"
+}
+```
+
+Microforms clients resolve the link to fetch the microform (caching it across multiple requests, as specified by HTTP headers).
+
+```xml
+<doc>
+  <!-- The machine-readable control data gives clients the 
+    -- information on how to execute the call -->
+  <form name="create" action="/create" method="post">
+
+    <!-- The human-readable labels gives programmers the
+      -- information they need to know what each field means -->
+    <label>Create new issues</label>
+
+    <!-- Individual fields can be annotated too -->
+    <label for="title">The title of the issue</label>
+    <input id="title" name="title" required="true" />
+
+    <label for="description">The description of the issue</label>
+    <input id="description" name="description" required="true" />
+  </form>
+</doc>
+```
