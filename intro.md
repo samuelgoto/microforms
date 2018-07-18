@@ -11,7 +11,7 @@ The top level microform document enables you to intermingle data (e.g. JSON) wit
 
   "<form name='create' action='/create'>": {
     "<input name='title'>": {},
-    "<input name:'description'>": {}
+    "<input name='description'>": {}
   }
 }
 ```
@@ -61,7 +61,7 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
     "<label>": "Create new issues",
     "<label for='title'>": "The title of the issue",
     "<input name='title' required='true'>": {}
-    "<label for:'description'>": "The description of the issue",
+    "<label for='description'>": "The description of the issue",
     "<input name='description' required='true'>": {}
   }
 }

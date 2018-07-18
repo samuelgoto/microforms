@@ -1,6 +1,78 @@
-The ```application/microforms+json``` data type is a notation for microforms that is strictly compatible with JSON.
+The ```application/microforms+json``` data type is a notation for microforms that is strictly backwards compatible with JSON.
 
-By convention, hyperdata nodes are started using an ```@``` notation. Data nodes that are children of hyperdata nodes are attributes of the hyperdata nodes and ```@``` nodes start new hyperdata nodes recursively.
+By convention, hyperdata node keys are wrapped around a ```<>``` to make them **distinguishable** from data, both **visually** as well as **programatically**.
+
+For example, while this is **data**:
+
+```json
+{
+  "a": "this is data",
+}
+```
+
+Whereas this is **hyperdata**:
+
+```json
+{
+  "<a>": "this is hyperdata"
+}
+```
+
+**Attributes** can be assigned inside the JSON body
+
+```json
+{
+  "<input>": {
+    "name": "bar"
+  }
+}
+```
+
+Or at the key location as a list of ```key=value``` pairs.
+
+```json
+{
+  "<input name='foo'>": {},
+}
+```
+
+The former is useful because it gives you the ability to write a list of elements that have the same name sequentially without creating an array. For example, this:
+
+```json
+{
+  "<form>": {
+    "<input>": [{
+      "name": "foo",
+      "required": "true"
+    }, {
+      "name": "bar",
+      "required": "false"
+    }]
+  }
+}
+```
+
+Can be written as:
+
+```json
+{
+  "<form>": {
+    "<input name='foo'>": {
+      "required": "true"
+    },
+    "<input name='bar'>": {
+      "required": "false"
+    }
+  }
+}
+```
+
+
+# Alternatives considered
+
+## Using @s
+
+By convention, hyperdata nodes could be started by using an ```@``` notation. Data nodes that are children of hyperdata nodes are attributes of the hyperdata nodes and ```@``` nodes start new hyperdata nodes recursively.
 
 For example:
 
@@ -42,3 +114,25 @@ You can assign properties at the key name of the node too between ```[...]```, w
   }
 }
 ```
+
+## JSON-ISH
+
+If backwards compatibility with JSON parsers wasn't an issue, we could extend the grammar to enable the intermingling of data and hyperdata. In the JSON-ish formulation, we would have something along the lines of:
+
+```
+{
+  a: 1,
+  b: 2,
+  form {
+    ...
+    input {
+      ...
+    }
+    input {
+      ...
+    }
+  }
+}
+```
+
+Breaking JSON compatibility requires a major advantage in return, which doesn't seem to stand on its own weight.

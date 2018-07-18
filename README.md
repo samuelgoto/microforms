@@ -18,9 +18,9 @@ Here is an example of what a ```application/microforms+json``` document looks li
   "description": "The list of issues we are tracking",
   "<form name='create' action='/create.php' method='POST'>": {
     "<label>": "Create new issues",
-    "<label for='title'>": "The name of the issue"
+    "<label for='title'>": "The name of the issue",
     "<input name='title' required>": {},
-    "<label for='description'>": "The description of the issue"
+    "<label for='description'>": "The description of the issue",
     "<input name='description'>": {}
   }
 }

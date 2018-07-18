@@ -23,7 +23,26 @@ async function parse(xml) {
 }
 
 describe("Microforms", function() {
-  it.only("building", async function() {
+  it.only("json", async function() {
+    console.log("hi");
+
+    let microform = {
+     "type": "Issues",
+     "description": "The list of issues we are tracking",
+     "<form name='create' action='/create.php' method='POST'>": {
+      "<label>": "Create new issues",
+      "<label for='title'>": "The name of the issue",
+      "<input name='title'> required": {},
+      "<label for='description'>": "The description of the issue",
+      "<input name='description'>": {}
+     }
+    };
+
+    console.log(JSON.parse(JSON.stringify(microform)));
+
+   });
+
+  it("building", async function() {
     // console.log("hi");
 
     // var xml = builder.create("doc")
