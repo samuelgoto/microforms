@@ -6,7 +6,7 @@ Microforms is a structural, domain-agnostic hypermedia API media type designed t
 
 Microforms intermingles domain-specific data (text) and general purpose control (hypertext), enabling API clients to make decisions (e.g. create/delete/update a resource) without using out-of-band information (e.g. human readable documentation).
 
-In addition to the data type, microforms also specifies conventions for the programatic [discovery](#discovery), [documentation](#documentation), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
+In addition to the data type, microforms also specifies conventions for the programatic [discovery](#discovery), [documentation](documentation.html), [key management](#key-management) and [quota management](#quota-management) of REST APIs.
 
 There is an XML serialization of microforms (```application/microforms+xml```) and an early exploration of a JSON/JSON-LD serialization (```application/microforms+json```).
 
@@ -46,8 +46,6 @@ It comes with some common control structures, borrowed from HTML for ease of use
 * [form](form.html)
     * [input](input.html)
     * [fieldset](fieldset.html)
-
-# Documentation
 
 # Validation
 
