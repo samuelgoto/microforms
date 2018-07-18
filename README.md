@@ -49,4 +49,5 @@ Link: </issues.microform>;
 
 You can learn more about microforms [here](intro.md).
 
+We would love your feedback and participation [here](https://github.com/samuelgoto/microforms/issues/new).
 
