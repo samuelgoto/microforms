@@ -4,21 +4,19 @@ Microforms is designed to make exposing REST APIs programatically **discoverable
 
 The top level microform document enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
 
-```html
-<doc>
-  {
-    "type": "Issues",
-    "description": "The list of issues we are tracking"
+```json
+{
+  "type": "Issues",
+  "description": "The list of issues we are tracking",
 
-    <form name="create" action="/create">
-      <input name="title" />
-      <input name="description" />
-    </form>
+  "<form name='create' action='/create'>": {
+    "<input name='title'>": {},
+    "<input name:'description'>": {}
   }
-</doc>
+}
 ```
 
-As a **media type**, microforms defines a serialization (e.g. ```application/microforms+xml``` and ```application/microforms+json```) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation):
+As a **media type**, microforms defines a serialization (e.g. [JSON](json.md) and [XML](xml.md)) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation):
 
 * [doc](doc.md)
 * [link](link.md)
@@ -54,29 +52,19 @@ What that means is that each [&lt;doc&gt;](doc.md) in microforms carries enough 
 
 The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.md) with your [&lt;form&gt;](form.md) and [&lt;input&gt;](input.md) elements.
 
-```xml
-<doc>
-  {
-    "type": "Issues",
-    "description": "The list of issues we are tracking"
+```json
+{
+  "type": "Issues",
+  "description": "The list of issues we are tracking"
 
-    <!-- The machine-readable control data gives clients the 
-      -- information on how to execute the call -->
-    <form name="create" action="/create" method="post">
-
-      <!-- The human-readable labels gives programmers the
-        -- information they need to know what each field means -->
-      <label>Create new issues</label>
-
-      <!-- Individual fields can be annotated too -->
-      <label for="title">The title of the issue</label>
-      <input id="title" name="title" required="true" />
-
-      <label for="description">The description of the issue</label>
-      <input id="description" name="description" required="true" />
-    </form>
+  "<form name='create' action='/create' method='post'>": {
+    "<label>": "Create new issues",
+    "<label for='title'>": "The title of the issue",
+    "<input name='title' required='true'>": {}
+    "<label for:'description'>": "The description of the issue",
+    "<input name='description' required='true'>": {}
   }
-</doc>
+}
 ```
 
 With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
@@ -182,23 +170,21 @@ Link: </ordinary-json-document.microform>;
 Microforms clients resolve the link to fetch the microform (caching it across multiple requests, as specified by HTTP headers).
 
 ```xml
-<doc>
-  <!-- The machine-readable control data gives clients the 
-    -- information on how to execute the call -->
-  <form name="create" action="/create" method="post">
+<!-- The machine-readable control data gives clients the 
+  -- information on how to execute the call -->
+<form name="create" action="/create" method="post">
 
-    <!-- The human-readable labels gives programmers the
-      -- information they need to know what each field means -->
-    <label>Create new issues</label>
+  <!-- The human-readable labels gives programmers the
+    -- information they need to know what each field means -->
+  <label>Create new issues</label>
 
-    <!-- Individual fields can be annotated too -->
-    <label for="title">The title of the issue</label>
-    <input id="title" name="title" required="true" />
+  <!-- Individual fields can be annotated too -->
+  <label for="title">The title of the issue</label>
+  <input id="title" name="title" required="true" />
 
-    <label for="description">The description of the issue</label>
-    <input id="description" name="description" required="true" />
-  </form>
-</doc>
+  <label for="description">The description of the issue</label>
+  <input id="description" name="description" required="true" />
+</form>
 ```
 
 # Extensibility

@@ -1,13 +1,10 @@
 const Assert = require("assert");
 const parseString = require("xml2js").parseString;
-
+const builder = require('xmlbuilder');
 
 async function parse(xml) {
  return new Promise(function(resolve, reject) {
    parseString(xml, function(err, result) {
-     // console.log(result);
-     // console.log(result.resource["$"]);
-
      if (err) {
       reject(err);
       return;
@@ -26,6 +23,53 @@ async function parse(xml) {
 }
 
 describe("Microforms", function() {
+  it.only("building", async function() {
+    // console.log("hi");
+
+    // var xml = builder.create("doc")
+    // .ele("form")
+    // .ele("input", {"type": "git"}, "git://github.com/oozcitak/xmlbuilder-js.git").up()
+    // .ele("input", {"type": "git"}, "git://github.com/oozcitak/xmlbuilder-js.git").up()
+    // .end({pretty: true, allowEmpty: false});
+ 
+    // console.log(xml);
+    let result = {
+     "type": "Issues",
+     "description": "The list of issues we are tracking",
+     "@form": {
+      "@name": "create",
+      "@action": "/create.php",
+      "@method": "POST",
+      "label": "Create new issues",
+      "input": [{
+        "@name": "title",
+        "@required": "true",
+        "label": "The name of the issue"
+       }, {
+        "@name": "description",
+        "label": "The description of the issue"
+       }]
+     }
+    };
+
+    let form = result["@form"];
+    delete result["@form"];
+
+    let doc = {
+     doc: {
+      "#text": JSON.stringify(result),
+      "form": form
+     }
+    }
+
+    var feed = builder
+     .create(doc, {})
+     .end({pretty: true, allowEmpty: false});
+
+    console.log(feed);
+
+
+   });
   it("parsing", async function() {
     
     let result = await parse(`

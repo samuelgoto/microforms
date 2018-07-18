@@ -8,26 +8,22 @@ Microforms intermingles domain-specific data (text) and general-purpose control 
 
 At its core, microforms is a set [hypermedia affordances](intro.md) available in a data type, as well as a set of conventions that clients use for the programatic [discovery](intro.md#discovery), [documentation](intro.md#documentation), [validation](intro.md#validation-rules), [execution](intro.md#execution-rules) (e.g. [key management](intro.md#key-management) and [quota management](intro.md#quota-management)) of REST APIs.
 
-There is an XML serialization of microforms (```application/microforms+xml```) and an early exploration of a JSON/JSON-LD serialization (```application/microforms+json```).
+Microforms currently specifies a [JSON](json.md) serialization (```application/microforms+json```) and a [XML](xml.md) serialization (```application/microforms+xml```).
 
-Here is an example of what a ```application/microforms+xml``` document looks like:
+Here is an example of what a ```application/microforms+json``` document looks like:
 
-```xml
-<doc>
-  {
-    <!-- domain-specific data -->
-    "type": "Issues",
-    "url": "https://github.com/samuelgoto/microforms/issues",
-    "description": "The list of issues we are tracking"
-
-    <!-- general purpose hypermedia affordances -->
-    <link rel="self" href="/api" />
-    <form action="/create" method="POST">
-      <input name="title" />
-      <input name="description" />
-    </form>
+```json
+{
+  "type": "Issues",
+  "description": "The list of issues we are tracking",
+  "<form name='create' action='/create.php' method='POST'>": {
+    "<label>": "Create new issues",
+    "<label for='title'>": "The name of the issue"
+    "<input name='title' required>": {},
+    "<label for='description'>": "The description of the issue"
+    "<input name='description'>": {}
   }
-</doc>
+}
 ```
 
 For backwards compatibility, you can also make microforms clients interpret existing APIs (e.g. ```application/json```) by passing a reference to the microforms document in a [HTTP Link Response Header](intro.md#backwards-compatibility).
@@ -38,7 +34,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 Link: </issues.microform>; 
     rel="http://microforms.org/"; 
-    type="application/microforms+xml"
+    type="application/microforms+json"
 
 {
   "type": "Issues",
