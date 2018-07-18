@@ -34,10 +34,10 @@ describe("Microforms", function() {
           "@context": "schema.org",
           "@type": "WebSite",
           "name": "Microforms"
+          <form action="/create" method="post">
+            <input name="firstName" required="true"/>
+          </form>
         }
-        <form action="/create" method="post">
-          <input name="firstName" required="true"/>
-        </form>
       </doc>
     `);
 

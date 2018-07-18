@@ -1,4 +1,23 @@
-# Affordances
+Microforms is a media type for hypermedia APIs. You can read more about its design goals [here](design.md).
+
+Microforms is a set of conventions for:
+
+* Notation
+* Affordances
+* Processing rules
+* Validation rules
+* Execution rules
+
+Within the execution rules, there are rules defined for:
+
+* Serialization
+* Key management
+* Quota management
+* Billing
+
+# Notation
+
+## Affordances
 
 Microforms comes with built-in hypermedia affordances to enable the programatic execution of API calls.
 
@@ -34,38 +53,43 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
   {
     "kind": "Issues",
     "description": "The list of issues we are tracking"
+
+    <!-- The machine-readable control data gives clients the 
+      -- information on how to execute the call -->
+    <form action="/create" method="post">
+
+      <!-- The human-readable labels gives programmers the
+        -- information they need to know what each field means -->
+      <label>Create new issues</label>
+
+      <!-- Individual fields can be annotated too -->
+      <label for="title">The title of the issue</label>
+      <input id="title" name="title" required="true" />
+
+      <label for="description">The description of the issue</label>
+      <input id="description" name="description" required="true" />
+    </form>
   }
-  <!-- The machine-readable control data gives clients the 
-    -- information on how to execute the call -->
-  <form action="/create" method="post">
-
-    <!-- The human-readable labels gives programmers the
-      -- information they need to know what each field means -->
-    <label>Create new issues</label>
-
-    <!-- Individual fields can be annotated too -->
-    <label for="title">The title of the issue</label>
-    <input id="title" name="title" required="true" />
-
-    <label for="description">The description of the issue</label>
-    <input id="description" name="description" required="true" />
-  </form>
 </doc>
 ```
 
 With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
-# Validation
+# Processing rules
+
+# Validation rules
 
 TODO(goto): go over validation
 
-# Key management
+# Execution rules
+
+## Key management
 
 TODO(goto): go over bearer tokens
 
 * Bearer tokens: for key management
 
-# Quota management
+## Quota management
 
 TODO(goto): go over quota management
 
@@ -73,18 +97,3 @@ TODO(goto): go over quota management
 
 * Accepts-Vocab: for vocabulary negotiation
 
-# Related Work
-
-* hydra
-* atom
-* swagger
-* alps
-* siren
-* swagger
-* json-home
-* rsdl
-* wadl
-* blueprint
-* restdesc
-* wsdl
-* hal
