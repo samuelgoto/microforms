@@ -2,7 +2,7 @@ Microforms is a media type for hypermedia APIs.
 
 Microforms is designed to make exposing REST APIs programatically **discoverable**, **explorable** and **executable** by **aggregators** (e.g. crawlers). 
 
-The top level microform [&lt;doc&gt;](doc.md) element enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
+The top level microform document enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
 
 ```html
 <doc>
@@ -18,9 +18,16 @@ The top level microform [&lt;doc&gt;](doc.md) element enables you to intermingle
 </doc>
 ```
 
-As a **media type**, microforms defines a serialization (e.g. ```application/microforms+xml``` and ```application/microforms+json```) as well as a set of [built-in](affordances) elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation, [form](form.md), [input](input.md), [fieldset](fieldset.md) and [label](label.md)).
+As a **media type**, microforms defines a serialization (e.g. ```application/microforms+xml``` and ```application/microforms+json```) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation):
 
-The [built-in](affordances.md) elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
+* [doc](doc.md)
+* [link](link.md)
+* [form](form.md)
+* [input](input.md)
+* [fieldset](fieldset.md)
+* [label](label.md)
+
+The built-in elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
 
 * programatically **[discover](#discovery)** your API
 * programatically create human-readable **[documentation](#documentation)** for you API
