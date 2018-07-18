@@ -4,7 +4,8 @@
   "description": "",
   "main": "microforms.js",
   "scripts": {
-    "test": "mocha -w tests"
+    "test": "mocha -w tests",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
