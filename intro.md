@@ -200,3 +200,7 @@ Microforms clients resolve the link to fetch the microform (caching it across mu
   </form>
 </doc>
 ```
+
+# Extensibility
+
+TODO(goto): go over extensibility.

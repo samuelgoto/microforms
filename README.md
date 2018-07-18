@@ -2,7 +2,7 @@
 permalink: /index.html
 ---
 
-Microforms is a structural, domain-agnostic hypermedia API media type designed to expose REST APIs.
+Microforms is an early proposal for a structural, domain-agnostic hypermedia API media type designed to expose REST APIs.
 
 Microforms intermingles domain-specific data (text) and general-purpose control (hypertext), enabling API clients to make decisions (e.g. create/delete/update a resource) without using out-of-band information (e.g. human readable documentation).
 
