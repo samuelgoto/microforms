@@ -9,13 +9,18 @@ app.get('/', (req, resp) => {
   // console.log("hi");
   // console.log();
   // console.log("hey");
-  let accepts = req.accepts(["application/microforms", "application/json"]);
-  if (accepts) {
-   resp.type(accepts);
-  } else {
-   resp.type("text/plain");
+  let result = {
+   hello: "world"
+  };
+  if (req.accepts("application/microforms")) {
+   resp.set("X-Compatible-Content-Type", "application/microforms");
+   result["<form name='create' method='post'>"] = {
+    "<input name='title'>": {},
+    "<input name='description'>": {}
+   };
   }
-  resp.json({hello: "world"});
+  resp.type("application/json");
+  resp.json(result);
  });
 
 exports.listen = function(opt_port) {
