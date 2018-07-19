@@ -70,7 +70,43 @@ Can be written as:
 
 # Alternatives considered
 
-## Using @s
+* [wrapping](#wrapping)
+* [different tokens](#different-tokens)
+* [json-ish](#json-ish)
+
+## Wrapping
+
+The most common strategy in hypermedia APIs ([hal](http://stateless.co/hal_specification.html), [hydra](http://www.hydra-cg.com/) and [siren](https://github.com/kevinswiber/siren)) is to "wrap" the domain-specific data in containers:
+
+```json
+{
+  "class": [ "order" ],
+  "properties": { 
+    "orderNumber": 42, 
+    "itemCount": 3,
+    "status": "pending"
+  },
+  "actions": [{
+    "name": "add-item",
+    "title": "Add Item",
+    "method": "POST",
+    "href": "http://api.x.io/orders/42/items",
+    "type": "application/x-www-form-urlencoded",
+    "fields": [
+      { "name": "orderNumber", "type": "hidden", "value": "42" },
+      { "name": "productCode", "type": "text" },
+      { "name": "quantity", "type": "number" }
+    ]
+  }],
+  "links": [
+    { "rel": [ "self" ], "href": "http://api.x.io/orders/42" },
+    { "rel": [ "previous" ], "href": "http://api.x.io/orders/41" },
+    { "rel": [ "next" ], "href": "http://api.x.io/orders/43" }
+  ]
+}
+```
+
+## Different tokens
 
 By convention, hyperdata nodes could be started by using an ```@``` notation. Data nodes that are children of hyperdata nodes are attributes of the hyperdata nodes and ```@``` nodes start new hyperdata nodes recursively.
 
