@@ -13,13 +13,15 @@ app.get('/', (req, resp) => {
    hello: "world"
   };
   if (req.accepts("application/microforms")) {
-   resp.set("X-Compatible-Content-Type", "application/microforms");
+   // resp.set("X-Compatible-Content-Type", "application/microforms");
+   resp.type("application/microforms");
    result["<form name='create' method='post'>"] = {
     "<input name='title'>": {},
     "<input name='description'>": {}
    };
+  } else {
+   resp.type("application/json");
   }
-  resp.type("application/json");
   resp.json(result);
  });
 

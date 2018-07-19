@@ -8,9 +8,9 @@ describe("Server", function() {
   it("Accepts */*", async function() {
     let response = await fetch("http://localhost:8000/");
     assertThat(response.headers.get("content-type"))
-     .equalsTo("application/json; charset=utf-8");
-    assertThat(response.headers.get("X-Compatible-Content-Type"))
-     .equalsTo("application/microforms");
+     .equalsTo("application/microforms; charset=utf-8");
+    // assertThat(response.headers.get("X-Compatible-Content-Type"))
+    // .equalsTo("application/microforms");
    });
 
   it("/", async function() {
