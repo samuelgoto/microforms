@@ -18,7 +18,6 @@ The top level microform document enables you to intermingle data (e.g. JSON) wit
 
 As a **media type**, microforms defines a serialization (e.g. [JSON](json.md) and [XML](xml.md)) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation):
 
-* [doc](doc.md)
 * [link](link.md)
 * [form](form.md)
 * [input](input.md)
@@ -48,7 +47,7 @@ You enable **aggregators** to learn about a machine-readable alternative version
 
 Microforms are designed to be self-documented without requiring clients to access any out-of-band information.
 
-What that means is that each [&lt;doc&gt;](doc.md) in microforms carries enough human-readable and machine-readable information to enable programmers and machines to make the decisions on how things should be filled to execute a call.
+What that means is that each microform carries enough human-readable and machine-readable information to enable programmers and machines to make the decisions on how things should be filled to execute a call.
 
 The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.md) with your [&lt;form&gt;](form.md) and [&lt;input&gt;](input.md) elements.
 
@@ -67,7 +66,7 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
 }
 ```
 
-With [&lt;label&gt;](label.md)s each and every one of your [&lt;doc&gt;](doc.md) can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
+With [&lt;label&gt;](label.md)s each and every one of your microforms can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
 # Validation rules
 

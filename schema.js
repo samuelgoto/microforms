@@ -23,7 +23,7 @@ let nodes =
        []),
 
   node("label", [], [
-        `The <label> tag defines a human-readable label for an [<input>](input.md), [<form>](form.md) or [<doc>](doc.md).`,
+        `The <label> tag defines a human-readable label for an [<input>](input.md) or [<form>](form.md).`,
        `The for attribute of the <label> tag should be equal to the id attribute of the related element to bind them together. If none is specified, it binds to its direct parent.`
        ].map(x => x.trim()).join("\n\n"), 
        [prop("for", "element_id", "Specifies which document element a label is bound to")],
