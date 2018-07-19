@@ -26,23 +26,6 @@ Here is an example of what a ```application/microforms+json``` document looks li
 }
 ```
 
-For backwards compatibility, you can also make microforms clients interpret existing APIs (e.g. ```application/json```) by passing a reference to the microforms document in a [HTTP Link Response Header](intro.md#backwards-compatibility).
-
-```
-HTTP/1.1 200 OK
-...
-Content-Type: application/json
-Link: </issues.microform>; 
-    rel="http://microforms.org/"; 
-    type="application/microforms+json"
-
-{
-  "type": "Issues",
-  "url": "https://github.com/samuelgoto/microforms/issues",
-  "description": "The list of issues we are tracking"
-}
-```
-
 You can learn more about microforms [here](intro.md).
 
 We would love your feedback and participation [here](https://github.com/samuelgoto/microforms/issues/new).
