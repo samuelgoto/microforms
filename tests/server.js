@@ -1,7 +1,7 @@
 const Assert = require("assert");
 const parseString = require("xml2js").parseString;
 const builder = require('xmlbuilder');
-const server = require("../server.js");
+const server = require("../demo/server.js");
 const fetch = require("node-fetch");
 
 describe("Server", function() {
