@@ -14,15 +14,6 @@ function prop(name, type, description) {
 
 let nodes = 
  [
-  node("doc", ["form", "link", "label"], `
-       The root element of a microform document.
-       `, 
-       [prop("type", "media_type", "Specifies the media type of the text body")], 
-       [`
-        hello world
-        `]
-       ),
-
   node("link", [], `
        The <link> tag defines a link between a document and an external resource.
        `, 
