@@ -16,13 +16,17 @@ The top level microform document enables you to intermingle data (e.g. JSON) wit
 }
 ```
 
-As a **media type**, microforms defines a serialization (e.g. [JSON](json.md) and [XML](xml.md)) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the XML-like notation):
+As a **media type**, microforms defines a serialization (e.g. [JSON](json.md) and [XML](xml.md)) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the [XML-like notation](json.md)).
+
+From a JSON [notation](json.md) perspective, **hyperdata** nodes are distinguishable (visually and programatically) from **data** nodes using a convention of surrounding their names with XML-like ```<>```s. You can also set **attributes** of hyperdata nodes inside the key or in their body.
+
+There are built-in **hyperdata** element types to help you express your hypertext transitions:
 
 * [link](link.md)
 * [form](form.md)
-* [input](input.md)
-* [fieldset](fieldset.md)
-* [label](label.md)
+    * [input](input.md)
+    * [fieldset](fieldset.md)
+    * [label](label.md)
 
 The built-in elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
 
@@ -189,3 +193,22 @@ Microforms clients resolve the link to fetch the microform (caching it across mu
 # Extensibility
 
 TODO(goto): go over extensibility.
+
+# Related Work
+
+Microforms is a hypermedia API media type, so it is directly related to the following approaches:
+
+* Hydra
+* Siren
+* HAL
+* Swagger
+
+An overview of each is compiled [here](http://blog.sgo.to/2014/03/rows-and-idls.html).
+
+Microforms offers a novel approach in the following dimensions:
+
+* [Notation](json.md##alternatives-considered)
+* Re-use of HTML
+* Crawler-oriented
+
+TODO(goto): go over each of these.
