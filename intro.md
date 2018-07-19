@@ -38,7 +38,7 @@ Lets go over how each of these capabilities work.
 By creating a link from your human-readable page to your microforms
 
 ```html
-<link rel="alternate" href="/api" type="application/microforms+xml">
+<link rel="alternate" href="/api" type="application/microforms+json">
 ```
 
 You enable **aggregators** to learn about a machine-readable alternative version of your human-readable page.
@@ -54,7 +54,7 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
 ```json
 {
   "type": "Issues",
-  "description": "The list of issues we are tracking"
+  "description": "The list of issues we are tracking",
 
   "<form name='create' action='/create' method='post'>": {
     "<label>": "Create new issues",
