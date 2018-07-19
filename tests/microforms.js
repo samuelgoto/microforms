@@ -24,7 +24,7 @@ async function parse(xml) {
 
 describe("Microforms", function() {
   it("json", async function() {
-    console.log("hi");
+    // console.log("hi");
 
     let microform = {
      "type": "Issues",
@@ -38,7 +38,7 @@ describe("Microforms", function() {
      }
     };
 
-    console.log(JSON.parse(JSON.stringify(microform)));
+    // console.log(JSON.parse(JSON.stringify(microform)));
 
    });
 
@@ -85,7 +85,7 @@ describe("Microforms", function() {
      .create(doc, {})
      .end({pretty: true, allowEmpty: false});
 
-    console.log(feed);
+    // console.log(feed);
 
 
    });
@@ -104,7 +104,7 @@ describe("Microforms", function() {
       </doc>
     `);
 
-    console.log(result);
+    // console.log(result);
   });
 
   function assertThat(x) {

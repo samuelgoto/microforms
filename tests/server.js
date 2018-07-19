@@ -5,8 +5,19 @@ const server = require("../demo/server.js");
 const fetch = require("node-fetch");
 
 describe("Server", function() {
-  it.only("/", async function() {
+  it("Accepts */*", async function() {
     let response = await fetch("http://localhost:8000/");
+    assertThat(response.headers.get("content-type"))
+     .equalsTo("application/microforms; charset=utf-8");
+   });
+
+  it("/", async function() {
+    //"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
+    let response = await fetch("http://localhost:8000/", {
+      headers: {
+       "Accept": "application/json"
+      }
+     });
     let result = await response.json();
 
     assertThat(response.headers.get("content-type"))
