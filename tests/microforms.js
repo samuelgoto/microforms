@@ -23,7 +23,7 @@ async function parse(xml) {
 }
 
 describe("Microforms", function() {
-  it.only("json", async function() {
+  it("json", async function() {
     console.log("hi");
 
     let microform = {
