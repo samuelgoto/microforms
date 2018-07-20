@@ -1,5 +1,5 @@
 const Assert = require("assert");
-const {parse, header} = require("../microforms.js");
+const {Parser, parse, header} = require("../microforms.js");
 
 describe("Microforms", function() {
   it("Parser: head", async function() {
@@ -120,6 +120,55 @@ describe("Microforms", function() {
        }]
       });
    });
+
+  it("Parser: full object", async function() {
+    assertThat(Parser.parse({})).equalsTo({children: []});
+    assertThat(Parser.parse({a: 1})).equalsTo({a: 1, children: []});
+    assertThat(Parser.parse({a: 1, "<b>": "hi"}))
+     .equalsTo({a: 1, children: [{
+         "@type": "b",
+         "#text": "hi",
+         "children": []
+     }]});
+    assertThat(Parser.parse({a: 1, "<b c='1'>": "hi"}))
+     .equalsTo({a: 1, children: [{
+         "@type": "b",
+         "#text": "hi",
+         "c": "1",
+         "children": []
+     }]});
+    assertThat(Parser.parse({a: 1, "<b c='1'>": { "<d>": "hi" }}))
+     .equalsTo({a: 1, children: [{
+         "@type": "b",
+         "c": "1",
+         "children": [{
+           "@type": "d",
+           "#text": "hi",
+           "children": []
+         }]
+     }]});
+   });
+
+  it("Build", async function() {
+    let result = Parser.build({
+      "a": 1,
+      "b": 2,
+      "<form name='create'>": {
+      }
+    });
+
+    // console.log(result);
+
+    assertThat(result).equalsTo({a: 1, b: 2});
+
+    let request = {};
+    let response = await result.create({}, async function(req) {
+      request = req; 
+      return {bar: 1};
+    });
+    assertThat(response).equalsTo({bar: 1});
+    assertThat(request).equalsTo({fake: 1});
+  });
 
   function assertThat(x) {
    return {

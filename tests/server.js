@@ -40,26 +40,7 @@ describe("Server", function() {
       }
      });
 
-    function microform(obj) {
-     return new Proxy(obj, {
-       get: function(obj, prop) {
-        if (obj[prop]) {
-         return obj[prop];
-        } else {
-         for (let key in obj) {
-          // console.log(key);
-          if (key.startsWith("<form " ) && key.endsWith(">")) {
-           return function(formData) {
-            return "hello world";
-           }
-          }
-         }
-        }
-       }
-     });
-    }
-
-    assertThat(microform(result).create()).equalsTo("hello world");
+    // assertThat(microform(result).create()).equalsTo("hello world");
    });
 
   before(function () {
