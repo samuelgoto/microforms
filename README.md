@@ -6,7 +6,7 @@ Microforms is an early proposal for a structural, domain-agnostic hypermedia API
 
 Microforms intermingles domain-specific **data** and general-purpose **hyperdata**, enabling API clients to make decisions (e.g. create/delete/update a resource) without using out-of-band information (e.g. human readable documentation).
 
-The [JSON](json.md) notation is designed to allow **data** to be intermingled (but still be  **distinguishable**, visually and programatically) with **hyperdata** and look (and behave) as similiar as possible to HTML:
+The [JSON](json.md) notation is designed to allow data to be intermingled (but still be  distinguishable, **visually** and **programatically**) with hyperdata and look (and behave) as similiar as possible to HTML:
 
 ```xml
 {

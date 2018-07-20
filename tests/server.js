@@ -3,6 +3,7 @@ const parseString = require("xml2js").parseString;
 const builder = require('xmlbuilder');
 const server = require("../demo/server.js");
 const fetch = require("node-fetch");
+const xml = require("xml-parse");
 
 describe("Server", function() {
   it("Accept: */*", async function() {
@@ -63,24 +64,16 @@ describe("Server", function() {
    });
 
   function parse(key, value) {
-   if (!key.startsWith("<" ) || !key.endsWith(">")) {
-    throw Error(`Parsing error. Expected tags at ${key}`);
-   }
-   let trim = (x) => x.substring(1, x.length - 1);
-   let name = key.substring(1, Math.max(key.indexOf(" "), key.indexOf(">")));
-   console.log(name);
-   let attributes = key.substring(`<${name} `.length, key.length - 1);
-   function params(attributes) {
-    let result = {};
-    attributes.split(" ")
-     .map(keyvalue => keyvalue.split("="))
-     .forEach(x => result[x[0]] = trim(x[1]));
-    return result;
-   }
 
-   let el = params(attributes);
+   let head = header(key);
+
+   let name = Object.keys(head)[0];
+
+   let el = head[name];
    el["@type"] = name;
    el.children = [];
+
+   // console.log(el);
 
    if (typeof value == "string") {
     el["#text"] = value;
@@ -94,27 +87,78 @@ describe("Server", function() {
    return el;
   }
 
-  it.only("Parser: head", async function() {
-    let regex = /^<\s*(\w+)((?:\s+\w+\s*=\s*'\w*')*)\s*>$/;
-    assertThat(regex.test("")).equalsTo(false);
-    assertThat(regex.test("<>")).equalsTo(false);
-    assertThat(regex.test("<f>")).equalsTo(true);
-    assertThat(regex.test("<form>")).equalsTo(true);
-    assertThat(regex.test("<form >")).equalsTo(true);
-    assertThat(regex.test("<form  >")).equalsTo(true);
-    assertThat(regex.test("< form>")).equalsTo(true);
-    assertThat(regex.test("<  form>")).equalsTo(true);
-    assertThat(regex.test("<  form  >")).equalsTo(true);
-    assertThat(regex.test("< form >")).equalsTo(true);
+  function header(key) {
+   key = key.replace(new RegExp("'", 'g'), "\"");
+   let [el] = xml.parse(key);
 
-    assertThat(regex.test("<form a>")).equalsTo(false);
-    assertThat(regex.test("<form a=>")).equalsTo(false);
+   // console.log(el);
+   if (!el || el.type != "element") {
+    return false;
+   }
 
-    assertThat(regex.test("<form a=''>")).equalsTo(true);
-    assertThat(regex.test("<form a =''>")).equalsTo(true);
-    assertThat(regex.test("<form a = ''>")).equalsTo(true);
-    assertThat(regex.test("<form a = '' >")).equalsTo(true);
+   return {
+    [el.tagName]: el.attributes
+   }
+  }
 
+  it("Parser: head", async function() {
+    assertThat(header("<form a='1'>")).equalsTo({"form": {"a": "1"}});
+
+    let regex = /^<\s*(\w+)((?:\s+\w+\s*=\s*'[^\'\n]*')*)\s*>$/;
+
+    assertThat(header((""))).equalsTo(false);
+    assertThat(header("<>")).equalsTo(false);
+
+    assertThat(header("<f>")).equalsTo({"f": {}});
+    assertThat(header("<form>")).equalsTo({"form": {}});
+    assertThat(header("<form >")).equalsTo({"form": {}});
+    assertThat(header("<form  >")).equalsTo({"form": {}});
+
+    assertThat(header("< form>")).equalsTo(false);
+    assertThat(header("<  form>")).equalsTo(false);
+    assertThat(header("<  form  >")).equalsTo(false);
+    assertThat(header("< form >")).equalsTo(false);
+
+    assertThat(header("<form a>"))
+     .equalsTo({"form": {"a": true}});
+    assertThat(header("<form a=>"))
+     .equalsTo({"form": {"a": ""}});
+
+    assertThat(header("<form a=''>"))
+     .equalsTo({"form": {"a": ""}});
+    assertThat(header("<form a =''>"))
+     .equalsTo({"form": {"a": true}});
+    assertThat(header("<form a = ''>"))
+     .equalsTo({"form": {"a": true}});
+    assertThat(header("<form a = '' >"))
+     .equalsTo({"form": {"a": true}});
+
+    assertThat(header("<form a = ' >"))
+     .equalsTo(false);
+    assertThat(header("<form a='>"))
+     .equalsTo(false);
+
+    assertThat(header("<form a='1'>"))
+     .equalsTo({"form": {"a": 1}});
+    assertThat(header("<form a='a'>"))
+     .equalsTo({"form": {"a": "a"}});
+    assertThat(header("<form a='hello'>"))
+     .equalsTo({"form": {"a": "hello"}});
+    assertThat(header("<form a='a1'>"))
+     .equalsTo({"form": {"a": "a1"}});
+    assertThat(header("<form a='a1 '>"))
+     .equalsTo({"form": {"a": "a1 "}});
+    assertThat(header("<form a='?'>"))
+     .equalsTo({"form": {"a": "?"}});
+    assertThat(header("<form a='-'>"))
+     .equalsTo({"form": {"a": "-"}});
+    assertThat(header("<form a='a-1-b-2-c-3-?-!-:-{}'>"))
+     .equalsTo({"form": {"a": "a-1-b-2-c-3-?-!-:-{}"}});
+
+    assertThat(header("<form a='\n'>"))
+     .equalsTo({"form": {"a": "\n"}});
+    assertThat(header("<form a='''>"))
+     .equalsTo(false);
    });
 
   it("Parser: simple", async function() {
@@ -143,9 +187,10 @@ describe("Server", function() {
       });
    });
 
-  it.skip("Parser: no attributes", async function() {
+  it("Parser: no attributes", async function() {
     assertThat(parse("<label>", {})).equalsTo({
-      "@type": "label"
+      "@type": "label",
+      "children": []
     });
    });
 
@@ -160,6 +205,10 @@ describe("Server", function() {
        "name": "create",
        "method": "POST",
        "children": [{
+         "@type": "label",
+         "#text": "good stuff",
+         "children": []
+        }, {
          "@type": "input",
          "name": "foo",
          "children": []
