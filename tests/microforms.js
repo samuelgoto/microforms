@@ -1,5 +1,8 @@
 const Assert = require("assert");
 const {Parser, parse, header} = require("../microforms.js");
+const {Request} = require("node-fetch");
+const { URLSearchParams } = require("url");
+
 
 describe("Microforms", function() {
   it("Parser: head", async function() {
@@ -162,12 +165,18 @@ describe("Microforms", function() {
     assertThat(result).equalsTo({a: 1, b: 2});
 
     let request = {};
-    let response = await result.create({}, async function(req) {
+    let params = new URLSearchParams();
+    params.append("foo", "bar");
+    let response = await result.create(params, async function(req) {
       request = req; 
       return {bar: 1};
     });
     assertThat(response).equalsTo({bar: 1});
-    assertThat(request).equalsTo({fake: 1});
+    assertThat(request).equalsTo({
+      "url": "",
+      "method": "GET",
+      "body": params
+    });
   });
 
   function assertThat(x) {

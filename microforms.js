@@ -1,4 +1,6 @@
 const xml = require("xml-parse");
+const {Request} = require("node-fetch");
+const {URLSearchParams} = require("url");
 
 function header(key) {
  key = key.replace(new RegExp("'", 'g'), "\"");
@@ -69,17 +71,23 @@ class Parser {
      }
      for (let form of forms) {
       if (form.name == key) {
-       return async function(args, fetch) {
-        // console.log(form);
-        let action = form.action || "";
-        // let request = new Request();
-        return await fetch({fake: 1});
-       };
+       return submit.bind(form);
       }
      }
     }
   });
  }
+}
+
+async function submit(params, fetch) {
+ let request = {
+  url: this.action || "",
+  method: this.method || "GET",
+  body: params
+ };
+
+ 
+ return await fetch(request);
 }
 
 module.exports = {
