@@ -8,7 +8,7 @@ Microforms intermingles domain-specific **data** and general-purpose **hyperdata
 
 The [JSON](json.md) notation is designed to allow **data** to be intermingled (but still be  **distinguishable**, visually and programatically) with **hyperdata** and look (and behave) as similiar as possible to HTML:
 
-```json
+```xml
 {
   "type": "Issues",
   "description": "The list of issues we are tracking",
@@ -16,7 +16,7 @@ The [JSON](json.md) notation is designed to allow **data** to be intermingled (b
   "<form name='create' action='/create.php' method='POST'>": {
     "<label>": "Create new issues",
     "<label for='title'>": "The name of the issue",
-    "<input name='title' required>": {},
+    "<input name='title' required='true'>": {},
     "<label for='description'>": "The description of the issue",
     "<input name='description'>": {}
   }

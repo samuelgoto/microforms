@@ -29,7 +29,7 @@ let nodes =
        [prop("for", "element_id", "Specifies which document element a label is bound to")],
        []),
 
-  node("form", ["label", "input", "fieldset"], [
+  node("form", ["label", "input", "fieldset", "output"], [
        `The <form> tag defines a templated hypertext transition.`
        ].map(x => x.trim()).join("\n\n"), 
        [prop("action", "URL", "Specifies where to send the form-data when a form is submitted"),
@@ -67,6 +67,31 @@ let nodes =
        [prop("disabled", "disabled", "Specifies that a group of related form elements should be disabled"),
         prop("name", "text", "Specifies a name for the fieldset")],
        []),
+
+  node("output", [], [
+       `The <output> tag represents the result of the <form> submission (e.g. what to expect what to get back).`
+       ].map(x => x.trim()).join("\n\n"), 
+       [prop("type", "mime_type", "Specifies the mime-type that defines how to interpret the output body")],
+       [`
+{
+  "context": "http://schema.org",
+  "@type": "WebSite",
+  "name": "Sam's website!",
+  "description": "Search for places!",
+  "<form action='/search.php'>": {
+    "<output type='application/schema+json'>": {
+      "type": "object",
+      "properties": {
+        "number": {"type": "number"},
+        "street_name": {"type": "string"},
+        "street_type": {
+          "type": "string",
+          "enum": ["Street", "Avenue", "Boulevard"]}
+      }
+    }
+  }
+}
+       `])
   ];
 
 // for (let {name, description, properties, children, examples} of elements) {

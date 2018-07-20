@@ -4,7 +4,7 @@ Microforms is designed to make exposing REST APIs programatically **discoverable
 
 The top level microform document enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
 
-```json
+```xml
 {
   "type": "Issues",
   "description": "The list of issues we are tracking",
@@ -27,6 +27,7 @@ There are built-in **hyperdata** element types to help you express your hypertex
     * [input](input.md)
     * [fieldset](fieldset.md)
     * [label](label.md)
+    * [output](output.md)
 
 The built-in elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
 
@@ -55,7 +56,7 @@ What that means is that each microform carries enough human-readable and machine
 
 The primary mechanism to make your APIs self-documented is to associate [&lt;label&gt;](label.md) with your [&lt;form&gt;](form.md) and [&lt;input&gt;](input.md) elements.
 
-```json
+```xml
 {
   "type": "Issues",
   "description": "The list of issues we are tracking",

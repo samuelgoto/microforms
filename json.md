@@ -4,7 +4,7 @@ By convention, hyperdata node keys are wrapped around a ```<>``` to make them **
 
 For example, while this is **data**:
 
-```json
+```xml
 {
   "a": "this is data",
 }
@@ -12,7 +12,7 @@ For example, while this is **data**:
 
 Whereas this is **hyperdata**:
 
-```json
+```xml
 {
   "<a>": "this is hyperdata"
 }
@@ -20,7 +20,7 @@ Whereas this is **hyperdata**:
 
 **Attributes** can be assigned inside the JSON body
 
-```json
+```xml
 {
   "<input>": {
     "name": "bar"
@@ -30,7 +30,7 @@ Whereas this is **hyperdata**:
 
 Or at the key location as a list of ```key=value``` pairs.
 
-```json
+```xml
 {
   "<input name='foo'>": {},
 }
@@ -38,7 +38,7 @@ Or at the key location as a list of ```key=value``` pairs.
 
 The former is useful because it gives you the ability to write a list of elements that have the same name sequentially without creating an array. For example, this:
 
-```json
+```xml
 {
   "<form>": {
     "<input>": [{
@@ -54,7 +54,7 @@ The former is useful because it gives you the ability to write a list of element
 
 Can be written as:
 
-```json
+```xml
 {
   "<form>": {
     "<input name='foo'>": {
