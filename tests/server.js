@@ -3,6 +3,7 @@ const parseString = require("xml2js").parseString;
 const builder = require('xmlbuilder');
 const server = require("../demo/server.js");
 const fetch = require("node-fetch");
+const {Parser} = require("../microforms.js");
 
 describe("Server", function() {
   it("Accept: */*", async function() {
@@ -34,13 +35,23 @@ describe("Server", function() {
 
     assertThat(result).equalsTo({
       "hello": "world",
-      "<form name='create' method='POST'>": {
+      "<form name='create' action='/create' method='POST'>": {
         "<input name='title'>": {},
         "<input name='description'>": {}
       }
      });
 
     // assertThat(microform(result).create()).equalsTo("hello world");
+   });
+
+  it("Submission", async function() {
+    let payload = await fetch("http://localhost:8000/");
+    let result = Parser.build("http://localhost:8000/", await payload.json());
+    let response = await result.create({title: "foo", description: "bar"});
+
+    assertThat(response).equalsTo({
+      "foo": "bar"
+    });
    });
 
   before(function () {

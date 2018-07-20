@@ -1,6 +1,7 @@
 const xml = require("xml-parse");
 const {Request} = require("node-fetch");
-const {URLSearchParams} = require("url");
+const {URL, URLSearchParams} = require("url");
+const fetch = require("node-fetch");
 
 function header(key) {
  key = key.replace(new RegExp("'", 'g'), "\"");
@@ -60,7 +61,7 @@ class Parser {
   return result;
  }
 
- static build(obj) {
+ static build(url, obj) {
   let parsed = Parser.parse(obj);
   let forms = parsed.children;
   delete parsed.children;
@@ -71,7 +72,7 @@ class Parser {
      }
      for (let form of forms) {
       if (form.name == key) {
-       return submit.bind(form);
+       return submit.bind(form, url);
       }
      }
     }
@@ -79,15 +80,35 @@ class Parser {
  }
 }
 
-async function submit(params, fetch) {
+async function submit(base, data, fetcher = fetch) {
+ // console.log(fetcher);
+
+ let params = new URLSearchParams();
+ for (let prop in data) {
+  params.append(prop, data[prop]);
+ }
+
+ // console.log(base);
+ // console.log(this.action || "");
+
+ let url = new URL(this.action || "", base);
+ url.search = params;
+
  let request = {
-  url: this.action || "",
-  method: this.method || "GET",
-  body: params
  };
 
+ if (this.method) {
+  request.method = this.method;
+ }
  
- return await fetch(request);
+ let response = await fetcher(url, request);
+
+ if (!response.ok) {
+  // console.log(response);
+  throw new Error("error");
+ }
+
+ return Parser.build(url, await response.json());
 }
 
 module.exports = {

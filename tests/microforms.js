@@ -1,7 +1,7 @@
 const Assert = require("assert");
 const {Parser, parse, header} = require("../microforms.js");
 const {Request} = require("node-fetch");
-const { URLSearchParams } = require("url");
+const {URL, URLSearchParams} = require("url");
 
 
 describe("Microforms", function() {
@@ -153,7 +153,7 @@ describe("Microforms", function() {
    });
 
   it("Build", async function() {
-    let result = Parser.build({
+    let result = Parser.build("http://localhost", {
       "a": 1,
       "b": 2,
       "<form name='create'>": {
@@ -164,19 +164,19 @@ describe("Microforms", function() {
 
     assertThat(result).equalsTo({a: 1, b: 2});
 
-    let request = {};
-    let params = new URLSearchParams();
-    params.append("foo", "bar");
-    let response = await result.create(params, async function(req) {
+    let url;
+    let request;
+
+    let response = await result.create({"foo": "bar"}, async function(action, req) {
+      url = action;
       request = req; 
-      return {bar: 1};
+      return {ok: true, json: () => {return {bar: 1}}};
     });
+
+    assertThat(url).equalsTo(new URL("http://localhost?foo=bar"));
+    assertThat(request).equalsTo({});
+
     assertThat(response).equalsTo({bar: 1});
-    assertThat(request).equalsTo({
-      "url": "",
-      "method": "GET",
-      "body": params
-    });
   });
 
   function assertThat(x) {
