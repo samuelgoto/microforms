@@ -10,8 +10,11 @@ The [JSON](json.md) notation is designed to allow data to be intermingled (but s
 
 ```xml
 {
-  "type": "Issues",
-  "description": "The list of issues we are tracking",
+  "@context": "https://schema.org/",
+  "@type": "Restaurant",
+  "name": "Sam's place",
+  "description": "Best food ever",
+  "address": "1234 main street, mountain view, ca",
 
   "<form name='create' action='/create.php' method='POST'>": {
     "<label>": "Create new issues",
