@@ -1,8 +1,8 @@
-Microforms is a media type for hypermedia APIs composed of a [notation](json.md) and a set of [built-in affordances](#built-in-affordances). It is designed to enable modelling your API entrypoints in terms of familiar concepts borrowed from HTML such that you can make your APIs programatically [discoverable](#discovery), [explorable](#documentation) and [executable](#execution) by aggregators.
+Microforms is a media type for hypermedia APIs composed of a [notation](#notation) and a set of [built-in affordances](#built-in-affordances) with familiar concepts borrowed from HTML. It is designed to make your API entrypoints  [discoverable](#discovery), [explorable](#documentation) and [executable](#execution) by aggregators.
 
 # Notation
 
-The [notation](json.md) is designed to intermingle **data** nodes 
+The JSON [notation](json.md) is designed to intermingle **data** nodes 
 
 ```xml
 {
@@ -10,7 +10,7 @@ The [notation](json.md) is designed to intermingle **data** nodes
 }
 ```
 
-with **hyperdata** nodes in a distinguishable manner (visually and programatically) using a convention of surrounding their names with XML-like ```<>```s:
+with **hyperdata** nodes in a distinguishable manner (visually and programatically) using a convention of surrounding their names with HTML-like ```<>```s:
 
 ```xml
 {
@@ -34,7 +34,7 @@ For example:
 
 # Built-in affordances
 
-There are built-in **hyperdata** element types to help you express your hypertext transitions:
+The built-in affordances (along with the [notation](#notation)) are designed to reuse as much as possible from HTML. There are built-in **hyperdata** element types to help you express your hypertext transitions:
 
 * [link](link.md)
 * [form](form.md)
