@@ -1,3 +1,5 @@
+baseurl: /microforms
+
 theme: jekyll-theme-slate
 
 kramdown:
