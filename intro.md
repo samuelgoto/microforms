@@ -82,10 +82,15 @@ With [&lt;label&gt;](label.md)s each and every one of your microforms can carry 
 
 Microforms enable you to programatically execute them with confidence. With microforms, you can:
 
+* programatically [autocomplete](#autocomplete) input.
 * programatically [validate](#validation) user input.
 * programatically [submit](#submit) the call.
 * programatically [manage keys](#key-management).
 * programatically [manage quotas](#quota-management).
+
+## Autocomplete
+
+The [input](input.md) autocomplete field enables clients of microforms to programatically autofill fields in the API requests with contextual data (e.g. personalized data or natural language processing interfaces).
 
 ## Validation
 

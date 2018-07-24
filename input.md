@@ -9,6 +9,7 @@ An input field can vary in many ways, depending on the type attribute.
 | Attribute        | Type           | Description  |
 | :--------------- |:---------------| :------------|
 | accept | media_type | Specifies the types of files that the server accepts (only for type='file') |
+| autocomplete | [autocomplete types](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill-field) | Specifies the autocomplete hint |
 | checked | checked | Specifies that an &lt;input&gt; element should be pre-selected when the document loads (for type='checkbox' or type='radio') |
 | disabled | disabled | Specifies that an &lt;input&gt; element should be disabled |
 | max | ```number``` or ```date``` | Specifies the maximum value for an &lt;input&gt; element |

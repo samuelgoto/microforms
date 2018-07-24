@@ -32,7 +32,8 @@ let nodes =
   node("form", ["label", "input", "fieldset", "output"], [
        `The <form> tag defines a templated hypertext transition.`
        ].map(x => x.trim()).join("\n\n"), 
-       [prop("action", "URL", "Specifies where to send the form-data when a form is submitted"),
+       [
+        prop("action", "URL", "Specifies where to send the form-data when a form is submitted"),
         prop("disabled", "disabled", "Specifies that the <form> should be disabled"),
         prop("enctype", "```application/x-www-form-urlencoded```, ```multipart/form-data``` or ```text/plain```", "Specifies how the form-data should be encoded when submitting it to the server (only for method='post')"),
         prop("method", "```get```, ```post``` ```delete``` or ```patch```", "Specifies the HTTP method to use when sending form-data"),
@@ -45,6 +46,7 @@ let nodes =
       `An input field can vary in many ways, depending on the type attribute.`
        ].map(x => x.trim()).join("\n\n"), 
        [prop("accept", "media_type", "Specifies the types of files that the server accepts (only for type='file')"),
+        prop("autocomplete", "[autocomplete types](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill-field)", "Specifies the autocomplete hint"),
         prop("checked", "checked", "Specifies that an <input> element should be pre-selected when the document loads (for type='checkbox' or type='radio')"),
         prop("disabled", "disabled", "Specifies that an <input> element should be disabled"),
         prop("max", "```number``` or ```date```", "Specifies the maximum value for an <input> element"),
