@@ -155,33 +155,25 @@ X-RateLimit-Reset: 1372700873
 
 # Backwards compatibility
 
-Ordinary APIs (e.g. JSON) can be interpreted as microforms by referencing a microforms document in a HTTP Link Response Header.
+Microforms is strictly backwards compatible with JSON: every JSON response is a microform response.
 
-```
-Link: </ordinary-json-document.microform>; 
-    rel="http://microforms.org/"; 
-    type="application/microforms+xml"
-```
+When a microforms client requests a microform, its sets optionally ```application/json``` as an interpretable type:
 
-Doing so, allows your API to gather the benefits of microforms without requiring developers to drastically change their documents and provides an incremental upgrade path for existing infrastructure without breaking existing clients that rely on your current API.
-
-A microforms client can request a microform through the ```Accept``` header.
-
-```
+```http
 GET /ordinary-json-document.json HTTP/1.1
 Host: example.com
-Accept: application/microforms+xml,application/json,*/*;q=0.1
+Accept: application/microforms+json,application/json,*/*;q=0.1
 ```
 
-The server can pick and choose which mime types to generate (e.g. ```application/microforms+xml``` or ```application/json```) and if it is easier, generate a microform response with ```applicaton/json``` and a reference to the microform document.
+That enables the server to pick and choose which mime types to generate (e.g. ```application/microforms+json``` or ```application/json```) and, if it is easier, generate a microform response with ```applicaton/json``` and a reference to the microform document.
 
-```
+```http
 HTTP/1.1 200 OK
 ...
 Content-Type: application/json
 Link: </ordinary-json-document.microform>; 
-    rel="http://microforms.org/"; 
-    type="application/microforms+xml"
+    rel="import"; 
+    type="application/microforms+json"
 
 {
   "type": "Issues",
@@ -193,22 +185,18 @@ Link: </ordinary-json-document.microform>;
 Microforms clients resolve the link to fetch the microform (caching it across multiple requests, as specified by HTTP headers).
 
 ```xml
-<!-- The machine-readable control data gives clients the 
-  -- information on how to execute the call -->
-<form name="create" action="/create" method="post">
-
-  <!-- The human-readable labels gives programmers the
-    -- information they need to know what each field means -->
-  <label>Create new issues</label>
-
-  <!-- Individual fields can be annotated too -->
-  <label for="title">The title of the issue</label>
-  <input id="title" name="title" required="true" />
-
-  <label for="description">The description of the issue</label>
-  <input id="description" name="description" required="true" />
-</form>
+{
+  "<form name='create' action='/create' method='post'>": {
+    "<label>": "Create new issues",
+    "<label for='title'>": "The title of the issue",
+    "<input name='title' required='true'>": {}
+    "<label for='description'>": "The description of the issue",
+    "<input name='description' required='true'>": {}
+  }
+}
 ```
+
+Doing so, allows your API to gather the benefits of microforms without requiring developers to drastically change their documents and provides an incremental upgrade path for existing infrastructure without breaking existing clients that rely on your current API.
 
 # Extensibility
 
