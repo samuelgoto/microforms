@@ -1,5 +1,5 @@
 ---
-permalink: /index.html
+permalink: index.html
 ---
 
 Microforms is an early proposal for a structural, domain-agnostic hypermedia API media type designed to expose REST APIs.
