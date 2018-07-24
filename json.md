@@ -1,4 +1,4 @@
-The ```application/microforms+json``` data type is a notation for microforms that is strictly backwards compatible with JSON.
+The ```application/microforms+json``` data type is a notation for microforms that is strictly backwards compatible with JSON. You can also use ```application/microforms+jsonld``` in case you want to carry JSON-LD.
 
 By convention, hyperdata node keys are wrapped around a ```<>``` to make them **distinguishable** from data, both **visually** as well as **programatically**.
 

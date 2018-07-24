@@ -1,8 +1,24 @@
-Microforms is a media type for hypermedia APIs.
+Microforms is a media type for hypermedia APIs composed of a [notation](json.md) and a set of [built-in affordances](#built-in-affordances). It is designed to enable modelling your API entrypoints in terms of familiar concepts borrowed from HTML such that you can make your APIs programatically [discoverable](#discovery), [explorable](#documentation) and [executable](#execution) by aggregators.
 
-Microforms is designed to make exposing REST APIs programatically **discoverable**, **explorable** and **executable** by **aggregators** (e.g. crawlers). 
+# Notation
 
-The top level microform document enables you to intermingle data (e.g. JSON) with hyperdata (e.g. control structures).
+The [notation](json.md) is designed to intermingle **data** nodes 
+
+```xml
+{
+  "a": "text"
+}
+```
+
+with **hyperdata** nodes in a distinguishable manner (visually and programatically) using a convention of surrounding their names with XML-like ```<>```s:
+
+```xml
+{
+  "<form action='/create.php'>": "hypertext"
+}
+```
+
+For example:
 
 ```xml
 {
@@ -16,9 +32,7 @@ The top level microform document enables you to intermingle data (e.g. JSON) wit
 }
 ```
 
-As a **media type**, microforms defines a serialization (e.g. [JSON](json.md) and [XML](xml.md)) as well as a set of built-in elements that enables modelling your API entrypoints in terms of familiar concepts borrowed from HTML (e.g. the [XML-like notation](json.md)).
-
-From a JSON [notation](json.md) perspective, **hyperdata** nodes are distinguishable (visually and programatically) from **data** nodes using a convention of surrounding their names with XML-like ```<>```s. You can also set **attributes** of hyperdata nodes inside the key or in their body.
+# Built-in affordances
 
 There are built-in **hyperdata** element types to help you express your hypertext transitions:
 
@@ -28,15 +42,6 @@ There are built-in **hyperdata** element types to help you express your hypertex
     * [fieldset](fieldset.md)
     * [label](label.md)
     * [output](output.md)
-
-The built-in elements - combined with a set of **processing rules**, **validation rules** and **execution rules** - enables aggregators to programatically **explore** your APIs. For example, with microforms, aggregators can:
-
-* programatically **[discover](#discovery)** your API
-* programatically create human-readable **[documentation](#documentation)** for you API
-* programatically **[validate](#validation-rules)** user input
-* programatically **[execute](#execution-rules)** API calls
-
-Lets go over how each of these capabilities work.
 
 # Discovery
 
@@ -73,7 +78,16 @@ The primary mechanism to make your APIs self-documented is to associate [&lt;lab
 
 With [&lt;label&gt;](label.md)s each and every one of your microforms can carry enough inline information to enable clients to make all of the decisions without accessing further information (e.g. off-band human-readable documentation). 
 
-# Validation rules
+# Execution
+
+Microforms enable you to programatically execute them with confidence. With microforms, you can:
+
+* programatically [validate](#validation) user input.
+* programatically [submit](#submit) the call.
+* programatically [manage keys](#key-management).
+* programatically [manage quotas](#quota-management).
+
+## Validation
 
 Microforms validation helps ensure that users or machines fill out the API calls in the correct format, making sure that submitted data will work successfully on the server. 
 
@@ -87,7 +101,7 @@ Clients validate:
 * the ```step```, ```min``` and ```max``` values of numeric inputs
 * the pattern matching of ```email``` inputs
 
-# Execution rules
+## Submission
 
 Microforms submission works like HTML form submissions:
 
@@ -95,7 +109,7 @@ Microforms submission works like HTML form submissions:
 * The ```method``` attribute defines the HTTP method to be used (e.g. GET or POST).
 * The ```enctype``` attribute defines how the form data should be encoded.
 
-If the data passes the [validation rules](#validation-rules), the data is encoded according to the ```enctype``` attribute and a HTTP request is constructed based on the ```action``` endpoint and the desired HTTP ```method``` to be used.
+If the data passes the [validation rules](#validation), the data is encoded according to the ```enctype``` attribute and a HTTP request is constructed based on the ```action``` endpoint and the desired HTTP ```method``` to be used.
 
 ## Key management
 

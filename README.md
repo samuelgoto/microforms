@@ -6,7 +6,7 @@ Microforms is an early proposal for a structural, domain-agnostic hypermedia API
 
 Microforms intermingles domain-specific **data** and general-purpose **hyperdata**, enabling API clients to make decisions (e.g. create/delete/update a resource) without using out-of-band information (e.g. human readable documentation).
 
-The [JSON](json.md) notation is designed to allow data to be intermingled (but still be  distinguishable, **visually** and **programatically**) with hyperdata and look (and behave) as similiar as possible to HTML:
+The [JSON/JSON-LD](json.md) notation is designed to allow data to be intermingled (but still be  distinguishable, **visually** and **programatically**) with hyperdata and look (and behave) as similiar as possible to HTML:
 
 ```xml
 {
@@ -26,9 +26,7 @@ The [JSON](json.md) notation is designed to allow data to be intermingled (but s
 }
 ```
 
-Microforms currently specifies a [JSON](json.md) serialization (```application/microforms+json```) and a [XML](xml.md) serialization (```application/microforms+xml```).
-
-At its core, microforms is a set [hypermedia affordances](intro.md) available in a data type, as well as a set of conventions that clients use for the programatic [discovery](intro.md#discovery), [documentation](intro.md#documentation), [validation](intro.md#validation-rules), [execution](intro.md#execution-rules) (e.g. [key management](intro.md#key-management) and [quota management](intro.md#quota-management)) of REST APIs.
+Microforms comes up a set of builtin hypermedia [affordances](intro.md) available in a data type and a set of conventions that clients use for the programatic [discovery](intro.md#discovery), [documentation](intro.md#documentation), [validation](intro.md#validation), [execution](intro.md#execution) (e.g. [key management](intro.md#key-management) and [quota management](intro.md#quota-management)) of REST APIs.
 
 You can learn more about microforms [here](intro.md).
 
