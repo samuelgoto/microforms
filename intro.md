@@ -210,9 +210,9 @@ Being a XML-based formulation, microforms borrows the XML namespace mechanism to
   "@type": "Restaurant",
   "name": "Sam's restaurant",
   "<form action='reservations.php' method='post'>": {
-    "xmlns:docs": "http://example.com/",
-    "<docs:contact name='Sam' email='foobar@hello.com'>": {},
-    "<docs:terms>": "By using this api you agree to our terms of service."
+    "xmlns": "http://example.com/",
+    "<contact name='Sam' email='foobar@hello.com'>": {},
+    "<terms>": "By using this api you agree to our terms of service."
   }
 }
 ```
