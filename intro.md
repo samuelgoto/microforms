@@ -200,7 +200,22 @@ Doing so, allows your API to gather the benefits of microforms without requiring
 
 # Extensibility
 
-TODO(goto): go over extensibility.
+It is critical that microforms can be extended by users without having to be recompiled / redesigned / reformulated. Specifically, it is critical that new affordances can be created without any permission required.
+
+Being a XML-based formulation, microforms borrows the XML namespace mechanism to provide the same extensibility model. You can use the reserved ```xmlns``` attribute or the ```xmlns:prefix``` attribute to allow declaration of nodes in an external namespace.
+
+```xml
+{
+  "@context": "https://schema.org/",
+  "@type": "Restaurant",
+  "name": "Sam's restaurant",
+  "<form action='reservations.php' method='post'>": {
+    "xmlns:docs": "http://example.com/",
+    "<docs:contact name='Sam' email='foobar@hello.com'>": {},
+    "<docs:terms>": "By using this api you agree to our terms of service."
+  }
+}
+```
 
 # Related Work
 
