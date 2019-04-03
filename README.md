@@ -9,8 +9,6 @@ Microforms intermingles domain-specific **data** and general-purpose **hyperdata
 
 The [JSON/JSON-LD](json.md) notation is designed to allow data to be intermingled (but still be  distinguishable, **visually** and **programatically**) with hyperdata and look (and behave) as similiar as possible to HTML:
 
-Is this better? Possibly?
-
 ```xml
 {
   "@context": "https://schema.org/",
